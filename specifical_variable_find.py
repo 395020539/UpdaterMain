@@ -1761,13 +1761,22 @@ def spec_fun_find_varaible_mech_and_kon(file_geskon,file_dcm,file_mech_table, se
         list_key = list(new_dict_find_result.keys())
         for key in list_key:
             print(f"key: {key}; value: {new_dict_find_result[key]}")
-            spec_find_value_cal = float(new_dict_find_result[key])
-            # 调整精度
-            spec_find_value_cal = round(spec_find_value_cal, 10)
-            if key == "value":
-                spec_find_para = str(spec_find_value_cal)+ "\n"
-            else:
-                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+            try:
+                spec_find_value_cal = float(new_dict_find_result[key])
+                # 调整精度
+                spec_find_value_cal = round(spec_find_value_cal, 10)
+                if key == "value":
+                    spec_find_para = str(spec_find_value_cal) + "\n"
+                else:
+                    spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+            except ValueError:
+                print(f"could not convert string to float: '{key}'")
+                spec_find_value_cal = new_dict_find_result[key]
+                if key == "value":
+                    spec_find_para = spec_find_value_cal + "\n"
+                else:
+                    spec_find_para = spec_find_para + f"({key})\n" + spec_find_value_cal + "\n"
+
     print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
     logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
     return spec_find_result, spec_find_para
@@ -1815,3 +1824,34 @@ def spec_fun_find_varaible_mech_and_kon_fur(file_a2l,file_geskon,file_dcm,file_m
     return spec_find_result, spec_find_para
 
 
+def spec_fun_find_variable_KLINE(variable_name,formula,file_geskon,file_dcm):
+    print(f"algorithm spec_fun_find_variable_KLINE")
+    logger.debug('调用函数<spec_fun_find_variable_KLINE>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find=variable_name, file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find=variable_name, file_name=file_dcm)
+    get_value_result, first_find_geskon = get_value_from_KENNLINIE(paragraph_find_geskon, formula)
+    get_value_result, first_find_dcm = get_value_from_KENNLINIE(paragraph_find_dcm, formula)
+    # 定义可能在多处存在的值
+    dict_find_result_uunique = {"geskon": first_find_geskon, "dcm": first_find_dcm}
+    # 定义不重复的值
+    new_dict_find_result = dict_compare(dict_find_result_uunique)
+
+    if dict_check_valid(new_dict_find_result):
+        spec_find_result = True
+        list_key = list(new_dict_find_result.keys())
+        for key in list_key:
+            print(f"key: {key}; value: {new_dict_find_result[key]}")
+            spec_find_value_cal = float(new_dict_find_result[key])
+            # 调整精度
+            spec_find_value_cal = round(spec_find_value_cal, 10)
+            if key == "value":
+                spec_find_para = str(spec_find_value_cal)+ "\n"
+            else:
+                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para

@@ -39,6 +39,37 @@ def formula_2(variable_name='', factor='1', formula=''):
 
 
 
+def formula_line(variable_name='', factor='1', formula=''):
+    variable_name = variable_name
+    factor = factor
+    formula = formula
+    result = ""
+    mypath = MyPath()
+    find_result, paragraph_find = spec_fun_find_variable_KLINE(variable_name,formula,mypath.file_geskon,mypath.file_dcm)
+    if find_result == True:
+        result = cal_paragraph(paragraph_find,factor)
+    print(f"result = {result}")
+    return result
+
+
+
+def formula_a2l(variable_name='', factor='1', formula=''):
+    variable_name = variable_name
+    factor = factor
+    formula = formula
+    result = ""
+    mypath = MyPath()
+    if re.match("(A2L)\[([A-Z]+)\]",formula):
+        if re.match("(A2L)\[([A-Z]+)\]",formula).group(2) == "MIN":
+            type = "min"
+        elif re.match("(A2L)\[([A-Z]+)\]",formula).group(2) == "MAX":
+            type = "max"
+        factor_a, factor_b = get_factor(factor)
+        _, result = find_text_a2l(variable_name, mypath.file_a2l, type, factor_a)
+    return result
+
+
+
 
 
 
@@ -93,5 +124,7 @@ def cal_paragraph(paragraph,factor):
 
 
 if __name__ == '__main__':
-    # formula_1(variable_name='aVehSp_MaxNegGradientVMax_XAU8',factor='a = 100 b = -100', formula='100')
-    formula_2(variable_name='wRackPo_RackposToleranceRA_XDU16', factor='a = -1;', formula='')
+    # formula_1(variable_name='aVehSp_MaxNegGradientVAvg_XAU16',factor='a = 100 b = -100', formula='100')
+    # formula_2(variable_name='wRackPo_RackposToleranceRA_XDU16', factor='a = -1;', formula='')
+    # formula_line(variable_name='nEndStopHsdCheck_HighSpeedDampingStart_XAS16', factor='a = 100', formula='X[LAST]')
+    formula_a2l(variable_name='nrsI_IntRotorSpeed_xds16', factor='a = 100', formula='A2L[MIN]')

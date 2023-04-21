@@ -326,7 +326,7 @@ def find_text_a2l(variable_to_find, file_name, type, factor):
                 paragraph_find = str(paragraph_find) + "\n"
                 print(f"在{file_name}中查找到变量: {variable_to_find}\n变量位于第: {index + 1} 行")
                 print(f"变量值为:\n {paragraph_find}")
-                logger.infoprint(f"在{file_name}中查找到变量: {variable_to_find}\n变量位于第: {index + 1} 行")
+                logger.info(f"在{file_name}中查找到变量: {variable_to_find}\n变量位于第: {index + 1} 行")
                 logger.info(f"变量值为:\n {paragraph_find}")
 
             else:

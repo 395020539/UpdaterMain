@@ -59,6 +59,15 @@ class MyFinder:
         elif self.formula_type == "2":
             print("Go to formula_type 2")
             self.value_new = formula_2(variable_name=self.variable_name, factor=self.factor, formula=self.formula)
+        elif self.formula_type == "LINE":
+            print("Go to formula_type LINE")
+            self.value_new = formula_line(variable_name=self.variable_name, factor=self.factor, formula=self.formula)
+        elif self.formula_type == "A2L":
+            self.value_new = formula_a2l(variable_name=self.variable_name, factor=self.factor, formula=self.formula)
+            print("Go to formula_type A2L")
+
+
+
 
 if __name__ == '__main__':
     dbhander = MyDataBaseHander()
@@ -66,7 +75,8 @@ if __name__ == '__main__':
     for tuple in data_list:
         print(tuple[0], tuple[1])
         mydata = MyData(tuple[0], tuple[1])
-        if mydata.formula_type == "1":
+        if mydata.formula_type == "A2L":
+            print(f"mydata.data_name = {mydata.data_name}")
             print(f"mydata.value_new = {mydata.value_new}")
     # print(data_list[0][0], data_list[0][1])
     # mydata = MyData(data_list[0][0], data_list[0][1])

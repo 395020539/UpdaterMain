@@ -6,6 +6,7 @@ import re
 from find_text import find_text_intxt
 from find_mech import fun_find_mech
 
+
 # from get_file_path import get_file_path
 # file_a2l, file_geskon, file_dcm, file_data_mytable, file_mech_table = get_file_path()
 
@@ -72,6 +73,7 @@ def get_Yvalue_last_from_KENNLINIE(paragraph_find):
     logger.info(f"查询末值结果: {get_value_result}; 数值: {get_value}")
     return get_value_result, get_value
 
+
 # 获取KENNLINIE数据中y-value的第一个数据
 def get_Yvalue_first_from_KENNLINIE(paragraph_find):
     logger.debug('调用函数<get_Yvalue_first_from_KENNLINIE>')
@@ -94,6 +96,79 @@ def get_Yvalue_first_from_KENNLINIE(paragraph_find):
             print("未找到匹配的数字")
     print(f"查询首值结果: {get_value_result}; 数值: {get_value}")
     logger.info(f"查询首值结果: {get_value_result}; 数值: {get_value}")
+    return get_value_result, get_value
+
+# 获取KENNLINIE数据中y-value的最大值
+def get_Yvalue_max_from_KENNLINIE(paragraph_find):
+    logger.debug('调用函数<get_Yvalue_max_from_KENNLINIE>')
+    get_value_result = False
+    get_value = ""
+    if "WERT" in paragraph_find:
+        # match = re.search(r'WERT\s+([\d\s]+(?:\.\d+)?)', paragraph_find)
+        match = re.search(r'WERT\s+([\d\s+.?]+)', paragraph_find)
+        if match:
+            numbers = match.group(1).split()
+            print(f"获取数据: {numbers}")
+            # 将字符串列表转换为浮点数列表
+            numbers = [float(number) for number in numbers]
+            # 找到最小值
+            max_number = max(numbers)
+            print(f"获取最大值: {max_number}")
+            get_value_result = True
+            get_value = max_number
+        else:
+            print("未找到匹配")
+    print(f"查询最大值结果: {get_value_result}; 数值: {get_value}")
+    logger.info(f"查询最大值结果: {get_value_result}; 数值: {get_value}")
+    return get_value_result, get_value
+
+# 获取KENNLINIE数据中y-value的最小值
+def get_Yvalue_min_from_KENNLINIE(paragraph_find):
+    logger.debug('调用函数<get_Yvalue_min_from_KENNLINIE>')
+    get_value_result = False
+    get_value = ""
+    if "WERT" in paragraph_find:
+        # match = re.search(r'WERT\s+([\d\s]+(?:\.\d+)?)', paragraph_find)
+        match = re.search(r'WERT\s+([\d\s+.?]+)', paragraph_find)
+        if match:
+            numbers = match.group(1).split()
+            print(f"获取数据: {numbers}")
+            # 将字符串列表转换为浮点数列表
+            numbers = [float(number) for number in numbers]
+            # 找到最小值
+            min_number = min(numbers)
+            print(f"获取最小值: {min_number}")
+            get_value_result = True
+            get_value = min_number
+        else:
+            print("未找到匹配")
+    print(f"查询最小值结果: {get_value_result}; 数值: {get_value}")
+    logger.info(f"查询最小值结果: {get_value_result}; 数值: {get_value}")
+    return get_value_result, get_value
+
+
+# 获取KENNLINIE数据中y-value的第N个数据
+def get_Yvalue_index_from_KENNLINIE(paragraph_find, index):
+    logger.debug('调用函数<get_Yvalue_index_from_KENNLINIE>')
+    get_value_result = False
+    get_value = ""
+    if "WERT" in paragraph_find:
+        match = re.search(r'WERT\s+([\d\s+.?]+)', paragraph_find)
+        if match:
+            # 将匹配到的数字字符串拆分成列表
+            numbers = match.group(1).split()
+            print(f"获取数据: {numbers}")
+            # 将字符串列表转换为浮点数列表
+            numbers = [float(number) for number in numbers]
+            # 找到第N个值
+            find_number = numbers[index]
+            print(f"获取第{index}个值: {find_number}")
+            get_value_result = True
+            get_value = find_number
+        else:
+            print("未找到匹配的数字")
+    print(f"查询第{index}值结果: {get_value_result}; 数值: {get_value}")
+    logger.info(f"查询第{index}值结果: {get_value_result}; 数值: {get_value}")
     return get_value_result, get_value
 
 
@@ -144,6 +219,31 @@ def get_Xvalue_last_from_KENNLINIE(paragraph_find):
             print("未找到匹配的数字")
     print(f"查询末值结果: {get_value_result}; 数值: {get_value}")
     logger.info(f"查询末值结果: {get_value_result}; 数值: {get_value}")
+    return get_value_result, get_value
+
+
+# 获取KENNLINIE数据中x-value的第N个数据
+def get_Xvalue_index_from_KENNLINIE(paragraph_find, index):
+    logger.debug('调用函数<get_Xvalue_index_from_KENNLINIE>')
+    get_value_result = False
+    get_value = ""
+    if "WERT" in paragraph_find:
+        match = re.search(r'ST/X\s+([\d\s+.?]+)', paragraph_find)
+        if match:
+            # 将匹配到的数字字符串拆分成列表
+            numbers = match.group(1).split()
+            print(f"获取数据: {numbers}")
+            # 将字符串列表转换为浮点数列表
+            numbers = [float(number) for number in numbers]
+            # 找到第N个值
+            find_number = numbers[index]
+            print(f"获取第{index}个值: {find_number}")
+            get_value_result = True
+            get_value = find_number
+        else:
+            print("未找到匹配的数字")
+    print(f"查询第{index}值结果: {get_value_result}; 数值: {get_value}")
+    logger.info(f"查询第{index}值结果: {get_value_result}; 数值: {get_value}")
     return get_value_result, get_value
 
 
@@ -237,7 +337,29 @@ def get_Xvalue_max_from_KENNLINIE(paragraph_find):
     return get_value_result, get_value
 
 
-
+# 获取KENNLINIE数据中x-value的最小值
+def get_Xvalue_min_from_KENNLINIE(paragraph_find):
+    logger.debug('调用函数<get_Xvalue_min_from_KENNLINIE>')
+    get_value_result = False
+    get_value = ""
+    if "WERT" in paragraph_find:
+        # match = re.search(r'WERT\s+([\d\s]+(?:\.\d+)?)', paragraph_find)
+        match = re.search(r"ST/X\s+([\d\s+.?]+)", paragraph_find)
+        if match:
+            numbers = match.group(1).split()
+            print(f"获取数据: {numbers}")
+            # 将字符串列表转换为浮点数列表
+            numbers = [float(number) for number in numbers]
+            # 找到最小值
+            min_number = min(numbers)
+            print(f"获取最小值: {min_number}")
+            get_value_result = True
+            get_value = min_number
+        else:
+            print("未找到匹配")
+    print(f"查询最小值结果: {get_value_result}; 数值: {get_value}")
+    logger.info(f"查询最小值结果: {get_value_result}; 数值: {get_value}")
+    return get_value_result, get_value
 
 
 # get_value_result, get_value = get_Yvalue_smallest_from_KENNLINIE(paragraph_find_geskon)
@@ -265,6 +387,7 @@ def dict_compare(dict_find_result):
     logger.info(f"生成新数据组: {new_dict}")
     return new_dict
 
+
 # 检查字典中是否所有值都无效
 def dict_check_valid(dict):
     dict_check_valid = False
@@ -272,4 +395,38 @@ def dict_check_valid(dict):
     if len(set(valid_values)) > 0:
         dict_check_valid = True
     return dict_check_valid
+
+
+def get_value_from_KENNLINIE(paragraph, formula):
+    result = ""
+    find_result = False
+    match = re.search(r"^([XY])\[(.*)\]$", formula)
+    if match:
+        if re.match("[0-9]+",match.group(2)):
+            index = int(match.group(2))
+            if match.group(1) == "X":
+                find_result, result = get_Xvalue_index_from_KENNLINIE(paragraph, index)
+            elif match.group(1) == "Y":
+                find_result, result = get_Yvalue_index_from_KENNLINIE(paragraph, index)
+        elif re.match("[A-Z]+",match.group(2)):
+            if match.group(1) == "X":
+                if match.group(2) == "MIN":
+                    find_result, result = get_Xvalue_min_from_KENNLINIE(paragraph)
+                elif match.group(2) == "MAX":
+                    find_result, result = get_Xvalue_max_from_KENNLINIE(paragraph)
+                elif match.group(2) == "FIRST":
+                    find_result, result = get_Xvalue_first_from_KENNLINIE(paragraph)
+                elif match.group(2) == "LAST":
+                    find_result, result = get_Xvalue_last_from_KENNLINIE(paragraph)
+            elif match.group(1) == "Y":
+                if match.group(2) == "MIN":
+                    find_result, result = get_Yvalue_min_from_KENNLINIE(paragraph)
+                elif match.group(2) == "MAX":
+                    find_result, result = get_Yvalue_max_from_KENNLINIE(paragraph)
+                elif match.group(2) == "FIRST":
+                    find_result, result = get_Yvalue_first_from_KENNLINIE(paragraph)
+                elif match.group(2) == "LAST":
+                    find_result, result = get_Yvalue_last_from_KENNLINIE(paragraph)
+    return find_result, result
+
 
