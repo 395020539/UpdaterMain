@@ -1,0 +1,387 @@
+id,update_time,data_name,data_path,module_name,variable_name,formula_type,factor,formula,comment
+,,Angle_Max_Steering_DriveTorqueSteerCompensation,/wh01619/Test/Data Calculate DriveTorque Steer Compensation,DTSC,,,,,
+,,Speed_Min_Vehicle_DriveTorqueSteerCompensation,/wh01619/test2/Data test 2,DTSC,,,,,
+,,Yawvelocity_Max_DriveTorqueSteerCompensation,/wh01619/Test/Data Calculate DriveTorque Steer Compensation,DTSC,,,,,
+,,Value_Min_NormInput_DriveTorqueSteerCompensation,/wh01619/test2/Data test 2,DTSC,,,,,
+,,TORQUE_CHANGE_INPUT_SHAFT_1,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,Torque_Change_Input_Shaft_1,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,TORQUE_CHANGE_INPUT_SHAFT_STEP_MAX_2,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,FORCE_RACK_MIN_1,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,Speed_Invalid_Signal,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,vVehSp_SubstituteSpeed_XDU16,1,,,
+,,Torque_Tolerance_Vehicle_Speed_Invalid,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,SPEED_VEHICLE_ASM_RAMP_IN,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,vVehSp_VehicleRunningBorder_XDU16,1,,,
+,,GRADIENT_ASSIST_RAMP_IN_1,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,mtrcMaxTorGradVehicleMoving_XDU16,1,,,
+,,VECTOR_MARGIN_MIN,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,Torque_Enstop_Transition,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,Factor_Max_Rack_Force,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,Safety Parameter,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,Torque_Gradient_Rotor_Max_Returning_Assist,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,yHwlWrapI_MaxRampUpGradient_XDU16,1,,,
+,,Torque_Steering_Max_Returning_Assist,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,mHwlWrapI_MaxSafeRampUpReqTorque_XDU16 ,1,,,
+,,Torque_Steering_Torque_Max_Deviation,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,Torque_Rotor_Drop_Sloa,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,Speed_Vehicle_Returning_Assist,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,Time_Rampup_Suspension,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,tHwlWrapI_RampUpSuspensionTime_XDU16,1,a = 0.001,y = a * x + b,tHwlWrapI_RampUpSuspensionTime_XDU16*0.001
+,,ASM_FHTI_UAF,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,ASM_FDTI_UAF,/03_System_Functions/Amplify Steering Motion/Data Amplify Steering Motion,ASM,,,,,
+,,Distance_To_Mechanical_Endstop,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,,,,
+,,Distance_To_Mechanical_Endstop_Max_Enstop_Torque,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,,,,
+,,max_inputshaft_torque_endstop_not_oversteerable_1,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,,,,
+,,max_inputshaft_torque_endstop_not_oversteerable_2,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,,,,
+,,max_inputshaft_torque_endstop_not_oversteerable_4,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,,,,
+,,max_rack_speed_dynamic_manoveurs,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,,,,
+,,Position_Deviation_Rack_Safety_CSAP,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,51,,,wRackPo_RackposToleranceRA_XDU16/Sheet Steering Ratio $Z$15
+,,Gradient_Handling_Rotortorque_Safety_BLOCK,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,xEndStop_RateLimiterToZeroRate_XDU32,1,a = 1000,y = a * x + b,xEndStop_RateLimiterToZeroRate_XDU32*1000
+,,Min_Vehicle_speed,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,vEndStop_uVehSpeedLearnFinished_XDU16,2,,,geskon + mech
+,,rotor_speed_LSS,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,nEndStop_oRotSpeedLearnFinished_XDU16,2,,,geskon + mech
+,,Energy_Impact_Reduced,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,,,,
+,,Distance_Deviation_Entstop_Startup,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,,,,
+,,Torque_Residual_Enstop,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,,,,
+,,Factor_Motor_Torque_2_Rackforce,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,,,,
+,,Factor_Rack_Force_2_Input_Shaft_Torque,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,,,,,
+,,Factor_Input_Shaft_Torque_2_Rotor_Torque,/03_System_Functions/Limit Steering Stroke/Data Limit Steering Stroke,LSS,xsyRatioEfficiency_XDU16,2,,,geskon + mech
+,,VehSpeed_Max_RackProt_On,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,vRackProt_MaxAbsVehicleSpeed_XDU16,1,,,
+,,RACKPROT_MAX_ABS_STEERING_ANGLE_SPEED,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,vRackProt_MaxAbsSteeringAngleSpeed_XDU16,1,,,
+,,RACKPROT_TIME_ACT,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,tRackProt_TimeRedRampDown_XDU16,1,,,
+,,RACKPROT_TIME_DEACT,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,tRackProt_TimeRedRampUp_XDU16,1,,,
+,,RACKPROT_MAX_RACK_FORCE,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,,,,,
+,,Angle_Alpha_Compression_CurbPushoff,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,,,,,
+,,Angle_Beta_Sweep_CurbPushoff,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,,,,,
+,,Torque_Max_SteeringWheel_RackProt_On,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,mRackProt_MinAbsTorsionBarTorqueRampDown_XDU16,1,,,
+,,Torque_Min_SteeringWheel_RackProt_Off,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,mRackProt_MaxAbsTorsionBarTorqueRampUp_XDU16,1,,,
+,,Time_Max_Off_RackProt,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,,,,,
+,,Time_Max_On_RackProt,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,,,,,
+,,Torque_CurbPush_Off_SteeringWheel_Misuse,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,,,,,
+,,VehSpeed_Max_Safety_RackProt,/03_System_Functions/Mitigate Curb Push-off/Data Mitigate Curb Push-off,MCP,,,,,
+,,Energy_Impact_Max,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,,,,
+,,Energy_Impact_Reduced,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,,,,
+,,Speed_Rack_HSD_Start_1,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,52,,,6 *Y Axis of nEndStopHsdCheck_HighSpeedDampingStart_XAS16[0] * Sheet Steering Ratio $Z$16) / (?360 * 1000 * Sheet Steering Ratio $Z$9)
+,,Speed_Rack_HSD_Start_2,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,53,,,Speed_Rack_HSD_Start_2 = (6 * last y-value of nEndStopHsd_HighSpeedDampingStart_XAS16 * Sheet Steering Ratio $Z$16)) / (?360 * 1000 *  Sheet Steering Ratio $Z$9)
+,,Speed_Rotor_Damping_Activate,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,nEndStopHsdCheck_HighSpeedDampingStart_XAS16,LINE,,Y[0],Y Axis of nEndStopHsdCheck_HighSpeedDampingStart_XAS16[0]
+,,Torque_HSD_Short_Before_Endstop,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,54,,,mEndStopHsd_MaxMotorTorque_FirstP_XDU16 or Y Axis of mEndStopHsd_MaxMotorTorque_XAS16[0]
+,,Torque_HSD_High_Distance_2_Endstop,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,55,,,mEndStopHsd_MaxMotorTorque_LastP_XDU16 or Y Axis of mEndStopHsd_MaxMotorTorque_XAS16[2]
+,,Distance_2_Endstop_4_Torque_Limitation,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,lEndStopHsd_DistanceToEndStop_LastP_XDU16 ,1,,,
+,,Speed_Tie_Rod_Damping_Activate,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,56,,,6*x-value of xActDamp_TorqueDepOnRotorSpeed_XAU16[0]*(Sheet Steering Ratio $Z$16) / (?360 * 1000 * Sheet Steering Ratio $Z$9)
+,,Speed_Vehicle_Active_Damping_Activate,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,xActDamp_FactorDepOnVehSpeed_XAU16,1,,,
+,,Damping_Level,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,,,,
+,,Speed_Backward_Enable,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,xActDamp_FactorDepOnVehSpeed_XAU16,1,,,
+,,Speed_Max_Backward_Allowed,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,vEndStopHsd_MaxAllowedBackward_XDU8,1,,,
+,,Speed_Disable_Backward,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,,,,
+,,Voltage_Power_Supply_Threshold,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,nEndStopHsd_UnderVoltageStartOffset_XAU16,LINE,,W[3],nEndStopHsd_UnderVoltageStartOffset_XAU16 [3]
+,,Torque_Motor_Threshold_DontCare,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,,,,
+,,Speed_Tie_Rod_Low,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,57,,,6 * nEndStopHsd_MinNeededRotSpdVLow_XDU16 * (Sheet Steering Ratio $Z$16) / (?360 * 1000 * Sheet Steering Ratio $Z$9)
+,,Speed_Tie_Rod_High,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,58,,,6 * nEndStopHsd_MinNeededRotSpdVHigh_XDU16 *(Sheet Steering Ratio $Z$16) / (?360 * 1000 * Sheet Steering Ratio $Z$9)
+,,Speed_Tie_Rod_Undervoltage_Offset,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,,59,,,6 * nEndStopHsd_UndervoltOffset_XDU16 * (Sheet Steering Ratio $Z$16)  / (?360 * 1000 * Sheet Steering Ratio $Z$9)
+,,Torque_Motor_Max_Allowed_VLow,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,mEndStopHsd_MaxAllwdMMotVLow_XDU16,1,,,
+,,Torque_Motor_Max_Allowed_VHigh,/03_System_Functions/Provide System Damping/Data Provide System Damping,PSD,mEndStopHsd_MaxAllwdMMotVHigh_XDU16,1,,,
+,,Short_Term_Detection_Number,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,zFriCo_UseFastShortTermFilterFactor_XDU8,1,,,
+,,FDC_Min_Vehicle_Speed_Learn,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,vFriCo_MinVehicleSpeed4Learn_XDU16,1,,,
+,,FDC_Max_Vehicle_Speed_Learn,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,vFriCo_MaxVehicleSpeed4Learn_XDU16,1,,,
+,,FDC_Max_Steering_Angle_Learn,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,wFriCo_MaxSteeringAngle4Learn_XDU16,1,,,
+,,FDC_Max_Steering_Speed_Learn,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,nFriCo_MaxRotorSpeed4Learn_XDU16,1,,,
+,,Reduction_Change_WakeUp,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,,,,,
+,,Max_Reduction_Steering_Torque,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,,,,,
+,,Min_Reduction_Steering_Torque,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,,,,,
+,,Friction_Nominal_Steering_Gear,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,,,,,
+,,Friction_System_Warning,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,,,,,
+,,Static_Friction_Compensation_Torque0,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,,,,,
+,,Trq_MaxDiff_AdaComp,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,,,,,
+,,Speed_AdaptiveKalman4Learn_Min_Vehicle_Speed_RFE,/03_System_Functions/Reduce Friction Effects/Data Reduce Friction Effects,RFE,,,,,
+,,Speed_Min_Stable_EngineRunning,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,nEngRn_EngineRunning_XDU16,1,,,
+,,Time_Min_Stable_EngineRunning,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,tEngRn_Running2Stable_XDU16,1,,,
+,,Voltage_Substitute_Value_SupplyVoltage,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,uLowVoltAssRed_SubstSupplyVoltage_XDU16,1,,,
+,,Factor_Max_Reduction_Request,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,xLowVoltAssRed_UnderVoltageReductionLevel_XAU16,1,,,
+,,Speed_Vehicle_Min_Activation_Reduction,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,vLowVoltAssRed_ValidMinSpeed_XDU16,1,,,
+,,Voltage_Min_Range_Active_Reduction,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,xLowVoltAssRed_UnderVoltageReductionLevel_XAU16,1,,,
+,,Voltage_Max_Range_Active_Reduction,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,xLowVoltAssRed_UnderVoltageReductionLevel_XAU16,1,,,
+,,Factor_Max_Limitation_Request,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,xLowVoltAssRed_UnderVoltageMotorCharTorqueAxis_XAU16,1,,,
+,,Voltage_Min_Range_Active_Limitation,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,xLowVoltAssRed_UnderVoltageMotorCharTorqueAxis_XAU16,1,,,
+,,Voltage_Max_Range_Active_Limitation,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,xLowVoltAssRed_UnderVoltageMotorCharTorqueAxis_XAU16,1,,,
+,,Time_Min_Rise_SupplyCurrent,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,,,,,
+,,Voltage_Min_Activation_WarningLamp,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,xLowVoltAssRed_UnderVoltageReductionLevel_XAU16,1,,,
+,,Reduction_Min_Activation_WarningLamp,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,Red_Level_Threshold_Yellow_On_XDU16,1,,,
+,,Voltage_Min_Disable_WarningLamp,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,xLowVoltAssRed_UnderVoltageReductionLevel_XAU16,1,,,
+,,Reduction_Min_Disable_WarningLamp,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,Red_Level_Threshold_Yellow_Off_XDU16,1,,,
+,,Factor_Max_Reduction_ErrorEntry,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,Undervolt_Reduction_Threshold_XDU16,1,,,
+,,Info_Error_SupplyCurrent,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,,,,,
+,,Lamp_ON_SPS,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,,,,,
+,,Lamp_Off_SPS,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,,,,,
+,,Time_Hold_Rise_SupplyCurrent,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,tLowVoltAssRed_UnderVoltageHoldTime_XDU16,1,,,
+,,Cutoff_frequency_Max_VoltageSpike,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,,,,,
+,,Current_Limit_Motoric_Reduction_PowerSupply,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,,,,,
+,,Current_Tolerance_Limit_PowerSupply,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,,,,,
+,,Current_Limit_Generatoric_Reduction_PowerSupply,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,,,,,
+,,Current_Limit_Gradient_PowerSupply,/03_System_Functions/Stabilize Power Supply/Data Stabilize Power Supply,SPS,,,,,
+,,SatMin_Assist_Postscaler_BsStMotTrq,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,xBci_MinAssistPostscaler_XDU16,1,,,
+,,SatMax_Assist_Postscaler_BsStMotTrq,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,xBci_MaxAssistPostscaler_XDU16,1,,,
+,,Min_4GradLim_Assist_Postscaler_BsStMotTrq,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,xBci_MinAssistXxxscalerNoGradient_XDU16,1,,,
+,,Max_4GradLim_Assist_Postscaler_BsStMotTrq,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,xBci_MaxAssistXxxscalerNoGradient_XDU16,1,,,
+,,Speed_Vehicle_Thres_DynStMotTrq,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,zBci_BaseTorqueCharSelect_XAS16,LINE,,W[LAST],last point of zBci_BaseTorqueCharSelect_XAS16
+,,Thres_ChatterPeriods_DynStMotTrq,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,zSteerCtrl_ChatteringDetected_XDU8,1,,,
+,,Thres_ChatterPeriods_RotInertiaMotTrq,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,zInCo_ChatterCountLimitInertia_XDU8,1,,,
+,,Force_Rack_Max_TargetStTrqCurve,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,kBci_MaxRackForce_XDU16,2,,,geskon + mech
+,,Speed_Vehicle_Substitute,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,vVehSp_SubstituteSpeed_XDU16,1,,,
+,,Cycles_Chatter_Thres_DesRelRedLvl,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,xSteerCtrl_ChatterReduction_XAU16,1,,,
+,,Speed_Vehicle_Thres_DesRelRedLvl,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,vSteerCtrl_MaxVehSpeedRedDueChatter_XDU16,1,,,
+,,Force_Rack_Max_VehicleSpeed,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,kBci_MaxRackForceOnVehicleSpeed_XAU16,1,,,
+,,Speed_Rotor_Thres_DynStMotTrq,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,,,,,
+,,Speed_Vehicle_Subst_DynStMotTrq,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,vSteerCtrl_SubstituteSpeed_XDU16,1,,,
+,,Torque_MaxUsable_Offset,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,,,,,
+,,Global relevant data,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,,,,,
+,,Torque_Steering_Max,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,,,,,
+,,Ratio_Char_SteeringTrq2RackForce,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,,,,,
+,,Ratio_RackForce2MotorTrq,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,xsyRackForceToEngTorque_XDU16,2,,,geskon + mech
+,,Safety relevant data,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,,,,,
+,,Force_Rack_deviation_tolerance,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,,,,,
+,,Torque_Steer_deviation_tolerance,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,,,,,
+,,Force_Rack_Safety_Limiter_1,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,kBci_SafetyLimiterMinRackForce1_XDU16,1,,,
+,,Speed_Vehicle_Safety_Limiter,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,vBci_SafetyLimiterMinSpeed_XDU16,1,,,
+,,Force_Rack_Safety_Limiter_2,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,kBci_SafetyLimiterMinRackForce2_XDU16,1,,,
+,,Torque_Steer_Safety_Limiter_1,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,mBci_SafetyLimiterMinTorsionBarTorque1_XDU16,1,,,
+,,Torque_Steer_Safety_Limiter_2,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,mBci_SafetyLimiterMinTorsionBarTorque2_XDU16,1,,,
+,,FIP,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,,,,,
+,,FIP_Assist Curve,/05_Function_Contributions/Calculate Basic Steer Assist/Data Calculate Basic Steer Assist,CBSA,,,,,
+,,System States,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,State_03_SystemBehaviourDescription,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,State_04_SystemBehaviourDescription,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Status/Quality Factors,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Status_Unknown_EndStopLearning,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Status_Partial_EndStopLearning,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Status_Complete_EndStopLearning,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Status_Accuracy_Invalid_SteeringAngle,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Status_Accuracy_InitWait_SteeringAngle,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Status_Accuracy_Raw_SteeringAngle,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Status_Accuracy_Exact_SteeringAngle,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Status_Active_EndStopTorque,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Status_Inactive_EndStopTorque,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,General,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Distance_Travel_Steer_Range,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,lEndStop_SteerRange_XDU16,2,,,
+,,Torque_Zero_Motor,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Torque_Max_Motor,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,mHwlWrapI_MaxMechAllowedTorque_XDF32,2,,,
+,,Gradient_Torque_RampDown,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,xEndStop_RateLimiterToZeroRate_XDU32,2,,,
+,,Safety,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Time_TaskGroup_Execution_Endstop,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Learning,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Distance_Travel_Min_EndStopLearning_Rack,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,lEndStop_uAbsSteerLearn_XDU16,2,,,
+,,Distance_Travel_Max_EndStopLearning_Rack,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,lEndStop_oAbsSteerLearn_XDU16,2,,,
+,,Distance_Travel_MinimumWithOffset_Rack,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,lEndStop_MinSteerRangeLearned_XDU16,2,,,
+,,Distance_Travel_UpdateStatus_EndStopLearning_Rack,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,60,,,lEndStop_StatusChangeAllowedOffset_XDU16 + mEndStop_SpringTorque_XAS16's start position
+,,Distance_Travel_RelearnOffset_EndStopPartialLearning_Rack,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,lEndStop_RelearnOffset_XDU16,2,,,
+,,Distance_ToEndStop_EndStopCompleteLearning_Rack,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,lEndStop_uDistanceLearnCondition_XDU16,2,,,
+,,Time_Debounce_EndStopLearning,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,tEndStop_DebounceTimeLearnFin_XDU8,2,,,
+,,Speed_Min_EndStopCompleteLearning_Vehicle,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,vEndStop_uVehSpeedLearnFinished_XDU16,2,,,
+,,Torque_Min_EndStopCompleteLearning_Steering,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,mEndStop_uTBTLearn_XDU16,2,,,
+,,Torque_Min_EndStopCompleteLearning_Motor,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,mEndStop_uMotorTorque_XDU16,2,,,
+,,Factor_Torque_Min_EndStopCompleteLearning_Motor,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,xEndStop_uTotalMotTorLimLearnFinished_XDU16,2,,,
+,,Speed_Max_EndStopPartialLearning_Rotor,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,nEndStop_oRotSpeedLearn_XDU16,2,,,
+,,Speed_Max_EndStopCompleteLearning_Rotor,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,nEndStop_oRotSpeedLearnFinished_XDU16,2,,,
+,,Distance To End Stop,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Distance_Travel_RawInitOffset_Rack,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,lEndStop_OffsetNotExactlyInit_XDU16,2,,,
+,,Distance_Travel_InvalidOffset_Rack,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,lEndStop_AllowedPosBorder_XDU16,2,,,
+,,Spring-Contribution,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Distance_Travel_FromEndStop_EndStopSpringActive,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,mEndStop_SpringTorque_XAS16,1,,,
+,,Distance_Travel_FromEndStop_EndStopSpringPeak,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,mEndStop_SpringTorque_XAS16,1,,,
+,,Gradient_Torque_Spring,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,xEndStop_SpringFactorGrad_XDU16,2,,,
+,,Damping-Contribution,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Distance_Travel_FromEndStop_EndStopDampingActive,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,32,,X  = (if Y =0),xEndStop_Damping_XAS16_0 X  = (if Y =0)
+,,Distance_Travel_FromEndStop_EndStopDampingPeak,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,33,,X  = (if Y =max),xEndStop_Damping_XAS16_0 X  = (if Y =max)
+,,Torque_Max_ToCentre_Damping,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,mEndStop_LimitDamping_XDU16,2,,,
+,,Torque_Max_Damping,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,mEndStop_oMaxDamping_XDU16,2,,,
+,,Limitation,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,,,,,
+,,Torque_Border1_Fading_Steering,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,xEndStop_FadeFactorMotTrq_XAU16,2,,,
+,,Speed_Border1_ExtraDamping_Motor,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,xEndStop_FadeFactorLimitation_XAU16,LINE,,X[0],X-Axis of xEndStop_FadeFactorLimitation_XAU16[0]
+,,Speed_Border2_ExtraDamping_Motor,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,xEndStop_FadeFactorLimitation_XAU16,LINE,,X[1],X-Axis of xEndStop_FadeFactorLimitation_XAU16[1]
+,,Factor_Assistance_Compliment_ResidualAssistance,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,xEndStop_ResidualAssistance_XDU16,2,,,
+,,Time_Max_AllowExtraDamping,/05_Function_Contributions/Calculate Endstop Torque/Data Calculate Endstop Torque,CET,tEndStop_MaxTimeIncrDamping_XDU8,2,,,
+,,ROTOR_SPEED_MIN_VALID,/05_Function_Contributions/Calculate Rotor Motion/Data Calculate Rotor Motion,CRM,nrsI_IntRotorSpeed_xds16,A2L,,A2L[MIN],nrsI_IntRotorSpeed_xds16 min
+,,ROTOR_SPEED_MAX_VALID,/05_Function_Contributions/Calculate Rotor Motion/Data Calculate Rotor Motion,CRM,nrsI_IntRotorSpeed_xds16,A2L,,A2L[MAX],nrsI_IntRotorSpeed_xds16 max
+,,FREQUENCY_CUTOFF_ROTOR_SPEED,/05_Function_Contributions/Calculate Rotor Motion/Data Calculate Rotor Motion,CRM,xRotSp_RotSpeedFilterFact_XDU16,1,,,xRotSp_RotSpeedFilterFact_XDU16
+,,FREQUENCY_CUTOFF_ROTORACCELERATION_FILTERED,/05_Function_Contributions/Calculate Rotor Motion/Data Calculate Rotor Motion,CRM,xRotSp_RotAccelerationFilterFact_XDU16,1,,,xRotSp_RotAccelerationFilterFact_XDU16
+,,GRADIENT_MAX_CALCULATE_ROTOR_MOTION,/05_Function_Contributions/Calculate Rotor Motion/Data Calculate Rotor Motion,CRM,aApplI_RotAcceleration_xds16,A2L,a = 0.006,A2L[MAX],aApplI_RotAcceleration_xds16 max*0.006
+,,FREQUENCY_CUTOFF_ROTORACCELERATION,/05_Function_Contributions/Calculate Rotor Motion/Data Calculate Rotor Motion,CRM,xRotSp_RotAccelerationLowFilterFact_XDU16,1,,,xRotSp_RotAccelerationLowFilterFact_XDU16
+,,Speed_Max_LSD_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,nRpSync_MaxRotSpdLowDyn_XDU16,2,,,
+,,Torque_Limited_LSD_Motor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,mRpSync_MaxMMotLowDyn_XDU16,21,,"""Steering Angle""  121","""Steering Angle""  line 122"
+,,Torque_Max_LSD_TorsionBar,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,mRpSync_MaxTBTLowDyn_XDU16,2,,,
+,,Torque_Calib_Max_TorsionBar,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,mRpSync_MaxCalibTBTorq_XDU16,2,,,
+,,Speed_Calib_Max_Vehicle,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,vRpSync_MaxCalibVehicleSpeed_XDU16,2,,,
+,,Angle_PreCalib_Offset_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Angle_NoCalib_Offset_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Factor_ShortTerm_Integral,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,xRpCorr_STIntegrationFactor_XDU16,2,,,
+,,Time_ShortTerm_Correction,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,tRpCorr_DetectionTimerST_XDU8,2,,,
+,,State_Angle_Exact_Steering,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Torque_LongTerm_AheadCheck_TorsionBar,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,mRpCorr_LTATBT_XDU16,2,,,
+,,Torque_LongTerm_AheadCheck_Motor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,mRpCorr_LTMaxMotTorq_XDU16,2,,,
+,,Time_RackPosition_ErrorFilter,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,tRackPo_ErrorFilterTimeout_XDU16,2,,,
+,,Time_RackPosition_LowVolt_ErrorFilter,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Speed_SNA_Rack,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Time_Ahead_RackPosition_ErrorFilter,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,tRackPo_ErrorFilterAheadTimeout_XDU16,2,,,MechanicalDataSheet Steering Angle line31 tRackPo_ErrorFilterAheadTimeout_XDU16
+,,Enable_LongTerm_SUPP,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,MechanicalDataSheet SA_Config line48
+,,Angle_LongTerm_Integ_Range,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpCorr_LTACompIntegRange_XDU16,2,,,MechanicalDataSheet Steering Angle line43  wRpCorr_LTACompIntegRange_XDU16
+,,Factor_LongTerm_Integral,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,xRpCorr_LTACompIntegFactor_XDU16,2,,,MechanicalDataSheet Steering Angle line48  xRpCorr_LTACompIntegFactor_XDU16
+,,Time_LongTerm_Correction,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,tRpCorr_DetectionTimerLT_XDU8,2,,,
+,,Factor_Speed_LongTerm_Vehicle,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,vRpCorr_VehicleSpeedWeight_XDU16,2,,,Get it from MechanicalDataSheet Steering Angle line47 vRpCorr_VehicleSpeedWeight_XDU16
+,,State_Angle_Raw_ACC_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,State_Angle_Exact_ACC_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Angle_Max_Calib_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpSync_MaxRotorAngleForCalib,2,,,
+,,Position_Zero_Rack,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,State_Angle_Initwait_Steering,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Angle_Zero_Steering,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Angle_Dynamic_Zero_Steering,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Angle_Int_Max_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,State_Angle_Invalid_Steering,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Angle_Allowed_Shift_Index,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpSync_AllowedIndexShift_XDU16,2,,,MechanicalDataSheet SA line135 wRpSync_AllowedIndexShift_XDU16
+,,Angle_Additional_Tolerance_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpSync_AdditionalToleranceRawSync_XDU16,2,,,MechanicalDataSheet SA line136 wRpSync_AdditionalToleranceRawSync_XDU16
+,,Angle_SteeringWheel_Turn_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpSync_SteeringWheelOneTurn_XDU16,2,,,MechanicalDataSheet SA line134 wRpSync_SteeringWheelOneTurn_XDU16
+,,Angle_Additional_Tolerance_OneTurn_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpSync_AdditionalToleranceOneTurn_XDU16,2,,,MechanicalDataSheet SA line138 wRpSync_AdditionalToleranceOneTurn_XDU16
+,,Angle_Max_Pinion,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRackPo_SteeringAngleMax_XDU16,2,,,MechanicalDataSheet SA line25 wRackPo_SteeringAngleMax_XDU16
+,,Position_Max_Rack,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,lRackPo_RackPositionMax_XDU16,2,,,MechanicalDataSheet SA line26 lRackPo_RackPositionMax_XDU16
+,,Angle_ShortTerm_Max_Offset_Steering,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRackPo_StCorrAngleMax_XDU16,2,,,MechanicalDataSheet SA line29 wRackPo_StCorrAngleMax_XDU16
+,,Angle_LongTerm_Max_Offset_Steering,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRackPo_LtCorrAngleMax_XDU16,2,,,MechanicalDataSheet SA line28 wRackPo_LtCorrAngleMax_XDU16
+,,Angle_Gradient_Integral_Threshold,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRackPo_GradErrLimit_XDU16,2,,,MechanicalDataSheet SA line34 wRackPo_GradErrLimit_XDU16
+,,Angle_Compare_Deviation_UP_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRackPo_RackposToleranceRA_XDU16,2,,,MechanicalDataSheet SA line35 wRackPo_RackposToleranceRA_XDU16
+,,Angle_Compare_Deviation_Down_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRackPo_RackposToleranceRA_XDU16,2,a = -1;,,
+,,Angle_Reference_Deviation_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRackPo_RackposToleranceRA_XDU16,2,,,
+,,Position_Straight_Ahead_Rack,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,lRackPo_RackPosRangeAhead_XDU16,2,,,MechanicalDataSheet SA line27 lRackPo_RackPosRangeAhead_XDU16
+,,State_Invalid_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,State_SCU_Error,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,State_Angle_Raw_Steering,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,State_Angle_Raw_Reference_RackPosition,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Angle_SyncDiff_Min_Difference_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpSync_MinSyncDiffRaw_XDU16,2,,,MechanicalDataSheet SA line126 wRpSync_MinSyncDiffRaw_XDU16
+,,Time_Ahead_Detection,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,tRpSync_InitTimeStraight_XDU16,2,,,MechanicalDataSheet SA line125 tRpSync_InitTimeStraight_XDU16
+,,Time_Index_High_Detection,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,stable
+,,Angle_Straight_Range_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpSync_RotAngRangeStraight_XDU16,2,,,MechanicalDataSheet SA line123 wRpSync_RotAngRangeStraight_XDU16
+,,Angle_Range_HalfSteer_Min_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpSync_MinSteeringRangeHalf_XDU16,2,,,MechanicalDataSheet SA line124 wRpSync_MinSteeringRangeHalf_XDU16
+,,Angle_ACC_Valid_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Angle_Difference_SyncExact_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpSync_MinSyncDiff_XDU16,21,,"""Steering Angle""  126",MechanicalDataSheet SA line127 wRpSync_MinSyncDiff_XDU16
+,,Angle_Width_Max_Index_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpSync_MaxAllowedIdxWidth_XDU16,2,,,MechanicalDataSheet SA line107 wRpSync_MaxAllowedIdxWidth_XDU16
+,,Angle_Width_Min_Index_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,wRpSync_MinAllowedIdxWidth_XDU16,2,,,MechanicalDataSheet SA line105 wRpSync_MinAllowedIdxWidth_XDU16
+,,State_Reference_ExactCheck_RackPosition,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,State_Reference_Exact_RackPosition,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,State_Reference_Invalid_RackPosition,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,AngleSpeed_Zero_Steering,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Speed_Zero_Rack,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Position_SNA_Reference_Rack,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,
+,,Angle_Gradient_Integral_Start_Threshold,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,vRackPo_RotAngGradientDiffMax_XDU16,2,,,
+,,Speed_Valid_Min_Rack,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,vDthrCtrl_MaxRackSpeed_XDU16,21,a = -1;,"""Steering Angle""  6",MechanicalDataSheet SA line7 vDthrCtrl_MaxRackSpeed_XDU16
+,,Speed_Valid_Max_Rack,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,vDthrCtrl_MaxRackSpeed_XDU16,21,,"""Steering Angle""  6",MechanicalDataSheet SA line7 vDthrCtrl_MaxRackSpeed_XDU16
+,,AngleSpeed_Backward_Max_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,vRackPo_RotorSpeedTolerance_XDU16,2,,,MechanicalDataSheet SA line36 vRackPo_RotorSpeedTolerance_XDU16
+,,AngleSpeed_Backward_Min_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,vRackPo_RotorSpeedTolerance_XDU16,2,,,MechanicalDataSheet SA line36 vRackPo_RotorSpeedTolerance_XDU16
+,,AngleSpeed_Valid_Max_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,nRackPo_MaxRotorSpeedRackSpeedPlausi_XDU16,2,,,MechanicalDataSheet SA line37 nRackPo_MaxRotorSpeedRackSpeedPlausi_XDU16
+,,AngleSpeed_Valid_Min_Rotor,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,nRackPo_MaxRotorSpeedRackSpeedPlausi_XDU16,2,,,MechanicalDataSheet SA line37 nRackPo_MaxRotorSpeedRackSpeedPlausi_XDU16
+,,Factor_Torsion_Compensation,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,xRpSync_TorsionRpsFactor_XDU16,2,,,
+,,Constant_Radian2Gradient_Conversion,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,Stable
+,,Position_Max_Allowed_Rack,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,Stable
+,,Position_Min_Allowed_Rack,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,Stable
+,,Angle_Max_Allowed_LTCorrection,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,Stable
+,,Angle_Min_Allowed_LTCorrection,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,Stable
+,,Angle_Max_Allowed_STCorrection,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,Stable
+,,Angle_Min_Allowed_STCorrection,/05_Function_Contributions/Calculate Steering Angle and Positions - iSAS/Data Calculate Steering Angle and Positions - iSAS,CSAP,,,,,Stable
+,,DistanceToEndstop_Subst_HSD,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,lEndStopHsdCheck_SubstDistToES_XDU16,1,,,
+,,Torque_Motor_Max_AD,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,mActDamp_MaxMotorTorqueDepOnRotorSpeed_XAU16,1,,,
+,,Gradient_Factor_Max_AD,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,xActDamp_FactorGrad_XDU16,1,,,
+,,Torque_Motor_DepOnRotorSpeed_AD,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,xActDamp_TorqueDepOnRotorSpeed_XAU16,1,,,
+,,Factor_DepOnVehSpeed_AD,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,xActDamp_FactorDepOnVehSpeed_XAU16,1,,,
+,,Reverse Driving / Undervoltage Extension,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,,,,,
+,,Supply_Voltage_Threshold,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,nEndStopHsd_UnderVoltageStartOffset_XAU16,LINE,,X[MAX],nEndStopHsd_UnderVoltageStartOffset_XAU16 max of X-Axis
+,,Speed_Rotor_Threshold_Activate_HSD_Forward,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,nEndStopHsd_HighSpeedDampingStart_XAS16,LINE,,Y[0],nEndStopHsd_HighSpeedDampingStart_XAS16 first of Y-Axis
+,,Speed_Rotor_Threshold_Activate_HSD_Reverse,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,nEndStopHsd_HighSpeedDampingStartReverse_XAS16,1,,,
+,,Speed_Rotor_OffsetVolt_Activate_HSD,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,nEndStopHsd_UnderVoltageStartOffset_XAU16,1,,,
+,,Speed_Vehicle_Threshold_Backward_Enable,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,vEndStopHsd_BackwardEnableTh_XDU8,1,,,
+,,Speed_Vehicle_Threshold_Backward_Disable,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,vEndStopHsd_BackwardDisableTh_XDU8,1,,,
+,,Speed_Vehicle_Max_Allowed_Backward,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,vEndStopHsd_MaxAllowedBackward_XDU8,1,,,
+,,Speed_Rotor_Min_Needed_VLow,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,nEndStopHsd_MinNeededRotSpdVLow_XDU16,1,,,
+,,Speed_Rotor_Min_Needed_VHigh,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,nEndStopHsd_MinNeededRotSpdVHigh_XDU1,1,,,
+,,Speed_Rotor_Under_Volt_Offset,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,nEndStopHsd_UndervoltOffset_XDU16,1,,,
+,,Factor_HSD_Forward,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,xEndStopHsd_HighSpeedDampingFactor_XAU16,1,,,
+,,Factor_HSD_Reverse,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,xEndStopHsd_HighSpeedDampingFactorReverse_XAU16,1,,,
+,,Safety relevant data,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,,,,,
+,,Torque_Motor_Threshold_DontCare,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,,,,,
+,,Torque_Motor_Max_Allowed_VLow,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,mEndStopHsd_MaxAllwdMMotVLow_XDU16,1,,,
+,,Torque_Motor_Max_Allowed_VHigh,/05_Function_Contributions/Calculate System Damping Torque/Data Calculate System Damping Torque,CSDT,mEndStopHsd_MaxAllwdMMotVHigh_XDU16,1,,,
+,,PCP_TARGET_RED_LEVEL,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,xRackProt_TargetReductionLevel_XDU16,1,,,
+,,PCP_GRAD_RED_RAMP_DOWN,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,xRackProt_GradRedRampDown_XDU16,1,,,
+,,RACKPROT_MAX_ABS_VEHICLE_SPEED,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,vRackProt_MaxAbsVehicleSpeed_XDU16,1,,,
+,,RACKPROT_MAX_ABS_STEERING_ANGLE_SPEED,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,vRackProt_MaxAbsSteeringAngleSpeed_XDU16,1,,,
+,,RACKPROT_MIN_ABS_TBT,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,mRackProt_MinAbsTorsionBarTorqueRampDown_XDU16,1,,,
+,,MIN_MOTOR_TORQUE_PCP_ACTIVE,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,mRackProt_LimitRedMotorTorque_XDU16,1,,,
+,,RACKPROT_TIME_ACT,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,tRackProt_TimeRedRampDown_XDU16,1,,,
+,,MAX_TBT_PCP_RAMP_UP,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,mRackProt_MaxAbsTorsionBarTorqueRampUp_XDU16,1,,,
+,,TIME_STOP_REDUCTION,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,tRackProt_TimeRedRampUp_XDU16,1,,,
+,,PCP_MAX_RED_FACTOR,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,,,,,
+,,PCP_GRAD_RED_RAMP_UP,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,xRackProt_GradRedRampUp_XDU16,1,,,
+,,DISTANCE_ENDSTOP_START,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,,,,,
+,,VehSpeed_Max_Safety_RackProt,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,,,,,
+,,max_steering_stroke_active,/05_Function_Contributions/Detect and activate Protect mechanical Rack/Data Detect and activate Protect mechanical Rack,DAPMR,,,,,
+,,Speed_Calibration_Vehicle_AR,/05_Function_Contributions/Determine Active Return Torque/Data Determine Active Return Torque,DART,vActRet_NominalSteeringSpeed_XAU16,1,,,
+,,Angle_Calibration_Steering_AR,/05_Function_Contributions/Determine Active Return Torque/Data Determine Active Return Torque,DART,vActRet_NominalSteeringSpeed_XAU16,1,,,
+,,Torque_Calibration_Driver_AR,/05_Function_Contributions/Determine Active Return Torque/Data Determine Active Return Torque,DART,xActRet_SteerSpeedFactDepOnDriver_XAU16,1,,,
+,,Speed_Peak_Vehicle,/05_Function_Contributions/Determine Active Return Torque/Data Determine Active Return Torque,DART,,,,,
+,,Factor_Substitute_Torque_AR,/05_Function_Contributions/Determine Active Return Torque/Data Determine Active Return Torque,DART,,,,,
+,,Factor_Substitute_Speed_AR,/05_Function_Contributions/Determine Active Return Torque/Data Determine Active Return Torque,DART,,,,,
+,,Safety relevant data,/05_Function_Contributions/Determine Active Return Torque/Data Determine Active Return Torque,DART,,,,,
+,,Time_FaultReaction_UAF,/05_Function_Contributions/Determine Active Return Torque/Data Determine Active Return Torque,DART,,,,,
+,,Integral_WeightedFailure_GenerotoricLimit_LMT,/05_Function_Contributions/Limit Motor Torque/Data Function Limit Motor Torque,LMT,xMotTorLim_Integ2StopGenRotSpeedExp_XDU16,1,,,
+,,LMT_MIN_ROTORSPEED,/05_Function_Contributions/Limit Motor Torque/Data Function Limit Motor Torque,LMT,nApplI_RotorSpeedFilt_xds16,A2L,,A2L[MIN],nApplI_RotorSpeedFilt_xds16 min£¨A2L£©
+,,LMT_MAX_ROTORSPEED,/05_Function_Contributions/Limit Motor Torque/Data Function Limit Motor Torque,LMT,nApplI_RotorSpeedFilt_xds16,A2L,,A2L[MAX],nApplI_RotorSpeedFilt_xds16 maxA2L£©
+,,LMT_MAX_NOMINALMOTORTORQUE,/05_Function_Contributions/Limit Motor Torque/Data Function Limit Motor Torque,LMT,mApplI_NominalMotorTorque_xds16,A2L,,A2L[MAX],mApplI_NominalMotorTorque_xds16 max£¨A2L£©
+,,LMT_MIN_NOMINALMOTORTORQUE,/05_Function_Contributions/Limit Motor Torque/Data Function Limit Motor Torque,LMT,mApplI_NominalMotorTorque_xds16,A2L,,A2L[MIN],mApplI_NominalMotorTorque_xds16 min£¨A2L£©
+,,LMT_MIN_STEERTORQUESUM,/05_Function_Contributions/Limit Motor Torque/Data Function Limit Motor Torque,LMT,mTrqSumI_SteerTrqSum_xds16,A2L,,A2L[MIN],mTrqSumI_SteerTrqSum_xds16 min£¨A2L£©
+,,LMT_MAX_STEERTORQUESUM,/05_Function_Contributions/Limit Motor Torque/Data Function Limit Motor Torque,LMT,mTrqSumI_SteerTrqSum_xds16,A2L,,A2L[MAX],mTrqSumI_SteerTrqSum_xds16 max£¨A2L£©
+,,Torque_Deviation_Max_Rotor_Safety_LMT,/05_Function_Contributions/Limit Motor Torque/Data Function Limit Motor Torque,LMT,,,,,
+,,Integral_WeightedFailure_Limit_LMT,/05_Function_Contributions/Limit Motor Torque/Data Function Limit Motor Torque,LMT,mMotTorLim_MaxIntegral_XDU16,1,,,
+,,Time_WeightedIntegral_LMT,/05_Function_Contributions/Limit Motor Torque/Data Function Limit Motor Torque,LMT,tMotTorLim_DelayToStartReduction_XDU16,1,,,
+,,Integral_WeightedFailure_FilterLimit_LMT,/05_Function_Contributions/Limit Motor Torque/Data Function Limit Motor Torque,LMT,xMotTorLim_Integ2StopFilterOnDecrLimits_XDU16,1,,,
+,,STORQUE_STEERING_LOAP_STEP_RESPONSE_Primary,/05_Function_Contributions/Prevent Loss of Assist/Data Prevent Loss of Assist,PLOA,mSafCtrl_MaxTorsionBarTor_XDU16,1,,,
+,,STORQUE_STEERING_LOAP_STEP_RESPONSE_Secondary,/05_Function_Contributions/Prevent Loss of Assist/Data Prevent Loss of Assist,PLOA,,,,,
+,,T_STORQUE_LOAP_STEP_RESPONSE,/05_Function_Contributions/Prevent Loss of Assist/Data Prevent Loss of Assist,PLOA,,,,,
+,,MIN_PERCENT_MTORQUE_LOAP,/05_Function_Contributions/Prevent Loss of Assist/Data Prevent Loss of Assist,PLOA,,,,,
+,,T_MAX_LOAP,/05_Function_Contributions/Prevent Loss of Assist/Data Prevent Loss of Assist,PLOA,,,,,
+,,SYS_STATE_1,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,SYS_STATE_2,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,SYS_STATE_3,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,SYS_STATE_4,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,SYS_STATE_5,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,SYS_STATE_6,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,Safety parameters,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,T_TSF_UAF,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,T_TSF_START_RED,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,MAX_TSF_Motor_Torque_Reductiontime,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,TSF_SAFE_GRAD,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,xTsf_RampGradient_XDU16,1,,,
+,,TSF_ROT_SPD_CHAR_CURVE,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,xTsf_RotSpeedCurveFact_XAU16,1,,,
+,,FHT_PTSF,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,PTSF_MIN_MOTTRQSUM,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,mTrqSumI_MotTrqSum1_xds16,A2L,,A2L[MIN],A2L variable boundary
+,,PTSF_MAX_MOTTRQSUM,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,mTrqSumI_MotTrqSum1_xds16,A2L,,A2L[MAX],A2L variable boundary
+,,PTSF_MIN_STEERINGANGLE,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,wApplI_SteeringAngle_xds16,A2L,,A2L[MIN],A2L variable boundary
+,,PTSF_MAX_STEERINGANGLE,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,wApplI_SteeringAngle_xds16,A2L,,A2L[MAX],A2L variable boundary
+,,PTSF_MIN_ROTORSPEED,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,nApplI_RotorSpeed_xds16,A2L,,A2L[MIN],A2L variable boundary
+,,PTSF_MAX_ROTORSPEED,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,nApplI_RotorSpeed_xds16,A2L,,A2L[MAX],A2L variable boundary
+,,PTSF_MIN_ROTORSPEED_HIL,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,PTSF_MAX_ROTORSPEED_HIL,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,PTSF_MIN_CURRENTLOWESTREDLEVEL,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,xHwlWrapI_CurrentLowestReductionLevel_xdu16,A2L,,A2L[MIN],A2L variable boundary
+,,PTSF_MAX_CURRENTLOWESTREDLEVEL,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,xHwlWrapI_CurrentLowestReductionLevel_xdu16,A2L,,A2L[MAX],A2L variable boundary
+,,PTSF_MIN_TORQUESENSORSTATE,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,PTSF_MAX_TORQUESENSORSTATE,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,TIME_MAX_OUTPUTSTUCK,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,tTsf_ConstTorqueTimeout_XDU8,1,,,
+,,ERROR_STATE_SWERROR,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,ERROR_STATE_HWERROR,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,Others,/05_Function_Contributions/Provide Torquesensor Fallbacktorque/Data Provide Torquesensor Fallbacktorque,PTSF,,,,,
+,,Engine_Stable_Status_Running,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,,,,,
+,,Voltage_Substitute_Value_SupplyVoltage,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,uLowVoltAssRed_SubstSupplyVoltage_XDU16,1,,,
+,,Factor_Characteristic_Reduction_VoltageDependent,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,xLowVoltAssRed_UnderVoltageReductionLevel_XAU16,1,,,xSupVoltRed_UnderVoltageReductionLevel_XAU16
+,,Factor_Characteristic_Limitation_VoltageDependent,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,xLowVoltAssRed_UnderVoltageMotorCharTorqueAxis_XAU16,1,,,xSupVoltRed_UnderVoltageMotorCharTorqueAxis_XAU16
+,,Factor_Characteristic_Gradient_VoltageDependent,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,xLowVoltAssRed_UnderVoltageTorqueReductionGradient_XAU16,1,,,xSupVoltRed_UnderVoltageTorqueReductionGradient_XAU16
+,,Time_Min_Cyclic_Functioncall,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,,,,,Cycle time of the function call
+,,Time_Hold_Rise_Reduction,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,tLowVoltAssRed_UnderVoltageHoldTime_XDU16,1,,,Hold time will help to prevent sudden rise in current by voltage is restored from a previously decreasing voltage.
+,,Speed_Vehicle_Min_Activation_Reduction,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,vLowVoltAssRed_ValidMinSpeed_XDU16,1,,,Activation limit for reduction based on vehicle speed
+,,Voltage_Min_Range_Supplyvoltage,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,uApplI_SupplyVoltage_xdu16,1,,,Lower limit of uApplI_SupplyVoltage_xdu16
+,,Voltage_Max_Range_Supplyvoltage,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,uApplI_SupplyVoltage_xdu16,1,,,Upper limit of uApplI_SupplyVoltage_xdu16
+,,Voltage_Min_Range_Active_Reduction,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,xLowVoltAssRed_UnderVoltageReductionLevel_XAU16,LINE,,X[0],Lower limit for which maximum reduction
+,,Voltage_Max_Range_Active_Reduction,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,xLowVoltAssRed_UnderVoltageReductionLevel_XAU16,LINE,,X[3],Limit below which reduction starts
+,,Voltage_Min_Range_Active_Limitation,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,xLowVoltAssRed_UnderVoltageMotorCharTorqueAxis_XAU16,LINE,,X[0],Lower limit for which maximum limitation
+,,Voltage_Max_Range_Active_Limitation,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,xLowVoltAssRed_UnderVoltageMotorCharTorqueAxis_XAU16,LINE,,X[3],Limit below which limitation starts
+,,Voltage_Min_Range_Limitation_Gradient,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,xLowVoltAssRed_UnderVoltageTorqueReductionGradient_XAU16,LINE,,X[0],Lower limit for which maximum gradient limitation
+,,Voltage_Max_Range_Limitation_Gradient,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,xLowVoltAssRed_UnderVoltageTorqueReductionGradient_XAU16,LINE,,X[1],Limit below which gradient limitation starts
+,,No_Reduction_VoltageDependent,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,,,,,No Reduction
+,,No_Limitation_VoltageDependent,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,,,,,No Limitation
+,,No_Gradient_VoltageDependent,/05_Function_Contributions/Reduce Assist in Low Voltage/Data Reduce Assist in Low Voltage,RAILV,,,,,No Torque gradient
+,,State_RackPos_ExactlyInit_CSAP,/03_System_Functions/Learn Endstop and Index Automatically/Data Learn Endstop and Index Automatically,LEIA,,,,,
+,,Position_Reached_Midhold_LEIA,/03_System_Functions/Learn Endstop and Index Automatically/Data Learn Endstop and Index Automatically,LEIA,,,,,
