@@ -47,13 +47,6 @@ class MyConfig:
         error_flag = 0
         error_message = ""
         e = None
-        try:
-            with open(self.data_file, 'r', encoding='utf - 8') as f:
-                json_data = json.load(f)
-        except  Exception as e:
-            print("An error occurred:", e)
-            error_flag = 1
-            error_message = "请检查配置文件或路径"
 
         if self.doors_username == "" or self.doors_username == "Default" or not self.doors_username:
             error_flag = 1
@@ -118,13 +111,46 @@ class MyPath:
                            "doors_password": "Default",
                            "project_name": "Default",
                            "data_suffix": "Default",
-                           "data_file": "Default"}
+                           "data_file": "Default",
+                           "file_mech": "Default",
+                           "file_geskon": "Default",
+                           "file_dcm": "Default",
+                           "file_a2l": "Default"}
             json_data = json.dumps(default_cfg, indent=4)
             # Write the JSON string to a file
             with open(self.config_path, 'w') as f:
                 f.write(json_data)
         if not os.path.exists(self.database_path):
             print("Database missing")
+
+
+
+
+class MyFilePath:
+    def __init__(self):
+        mypath = MyPath()
+        self.return_code, self.file_mech, self.file_geskon, self.file_dcm, self.file_a2l \
+            = self.read_path(mypath.config_path)
+    def read_path(self, config_path):
+        return_code = "0"
+
+        try:
+            with open(config_path, 'r', encoding='utf - 8') as f:
+                json_data = json.load(f)
+                file_mech = json_data['file_mech']
+                print(f"file_mech = \n{file_mech}")
+                file_geskon = json_data['file_geskon']
+                print(f"file_geskon = \n{file_geskon}")
+                file_dcm = "/" + json_data['file_dcm']
+                print(f"file_dcm = \n{file_dcm}")
+                file_a2l = json_data['file_a2l']
+                print(f"file_a2l = \n{file_a2l}")
+        except Exception as e:
+            print("An error occurred:", e, config_path)
+            return_code = "1"
+        finally:
+            return return_code, file_mech, file_geskon, file_dcm, file_a2l
+
 
 
 
@@ -139,3 +165,10 @@ if __name__ == '__main__':
     # print("data_file: ", myconfig.data_file)
     # print("doors_exe_path: ", myconfig.doors_exe_path)
     # print("data_suffix: ", myconfig.data_suffix)
+
+    myfilepath = MyFilePath()
+    print("file_mech: ", myconfig.file_mech)
+    print("file_geskon: ", myconfig.file_geskon)
+    print("file_dcm: ", myconfig.file_dcm)
+    print("file_a2l: ", myconfig.file_a2l)
+

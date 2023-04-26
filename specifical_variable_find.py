@@ -1737,6 +1737,10 @@ def spec_fun_find_variable_31(file_a2l,file_geskon,file_dcm,file_mech_table):
 
 
 
+
+
+
+
 # 根据变量名（parameter）从机械参数表/geskon/dcm中查询数据
 def spec_fun_find_varaible_mech_and_kon(file_geskon,file_dcm,file_mech_table, search_parameter):
     logger.debug('调用函数<spec_fun_find_varaible_mech_and_kon>')
@@ -1786,7 +1790,7 @@ def spec_fun_find_varaible_mech_and_kon(file_geskon,file_dcm,file_mech_table, se
 
 # 根据数据名（data_module）或变量名从机械参数表/geskon/dcm中查询数据,并进行乘法运算factor为乘法系数）
 # 如果定义了参数在机械参数表中的坐标，优先以坐标作为输入查询
-def spec_fun_find_varaible_mech_and_kon_fur(file_a2l,file_geskon,file_dcm,file_mech_table, search_variable, search_parameter, mech_positon, factor):
+def spec_fun_find_varaible_mech_and_kon_fur(file_geskon,file_dcm,file_mech_table,search_parameter, mech_positon, factor):
     logger.debug('调用函数<spec_fun_find_varaible_mech_and_kon_fur>')
     search_in_sheet_list = ["MechanicalData", "SW-Endstop", "Steering Angle", "LoadTracking", "other tuning"]
     spec_find_result = False
@@ -1852,6 +1856,608 @@ def spec_fun_find_variable_KLINE(variable_name,formula,file_geskon,file_dcm):
                 spec_find_para = str(spec_find_value_cal)+ "\n"
             else:
                 spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+
+
+# Y轴为0对应的X
+def spec_fun_find_variable_formula_32(file_geskon,file_dcm,variable_name):
+    print(f"algorithm formula_32")
+    logger.debug('调用函数<algorithm formula_32>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find=variable_name, file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find=variable_name, file_name=file_dcm)
+    get_value_result, first_find_geskon = get_Xvalue_Y0_from_KENNLINIE(paragraph_find_geskon)
+    get_value_result, first_find_dcm = get_Xvalue_Y0_from_KENNLINIE(paragraph_find_dcm)
+    # 定义可能在多处存在的值
+    dict_find_result_uunique = {"geskon": first_find_geskon, "dcm": first_find_dcm}
+    # 定义不重复的值
+    new_dict_find_result = dict_compare(dict_find_result_uunique)
+
+    if dict_check_valid(new_dict_find_result):
+        spec_find_result = True
+        list_key = list(new_dict_find_result.keys())
+        for key in list_key:
+            print(f"key: {key}; value: {new_dict_find_result[key]}")
+            spec_find_value_cal = float(new_dict_find_result[key])
+            # 调整精度
+            spec_find_value_cal = round(spec_find_value_cal, 10)
+            if key == "value":
+                spec_find_para = str(spec_find_value_cal)+ "\n"
+            else:
+                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+# Y轴最大对应的X
+def spec_fun_find_variable_formula_33(file_geskon,file_dcm,variable_name):
+    print(f"algorithm formula_33")
+    logger.debug('调用函数<algorithm formula_33>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find=variable_name, file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find=variable_name, file_name=file_dcm)
+    get_value_result, first_find_geskon = get_Xvalue_Ymax_from_KENNLINIE(paragraph_find_geskon)
+    get_value_result, first_find_dcm = get_Xvalue_Ymax_from_KENNLINIE(paragraph_find_dcm)
+    # 定义可能在多处存在的值
+    dict_find_result_uunique = {"geskon": first_find_geskon, "dcm": first_find_dcm}
+    # 定义不重复的值
+    new_dict_find_result = dict_compare(dict_find_result_uunique)
+
+    if dict_check_valid(new_dict_find_result):
+        spec_find_result = True
+        list_key = list(new_dict_find_result.keys())
+        for key in list_key:
+            print(f"key: {key}; value: {new_dict_find_result[key]}")
+            spec_find_value_cal = float(new_dict_find_result[key])
+            # 调整精度
+            spec_find_value_cal = round(spec_find_value_cal, 10)
+            if key == "value":
+                spec_find_para = str(spec_find_value_cal)+ "\n"
+            else:
+                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+
+
+# Position_Deviation_Rack_Safety_CSAP
+# wRackPo_RackposToleranceRA_XDU16/（Sheet Steering Ratio $Z$15）
+def spec_fun_find_variable_formula_51(file_geskon,file_dcm,file_mech_table):
+    logger.debug('调用函数<algorithm formula_51>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find="wRackPo_RackposToleranceRA_XDU16", file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find="wRackPo_RackposToleranceRA_XDU16", file_name=file_dcm)
+    find_result_mech1, mech_value1 = \
+        fun_find_mech(file_mech_table, "Steering Angle", 34, 1, 2)
+    find_result_mech2, mech_value2 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 14, 25, 1)
+
+    if find_result_geskon and find_result_dcm and find_result_mech1 and find_result_mech2:
+        spec_find_result = True
+        if float(paragraph_find_geskon[8:]) == float(paragraph_find_dcm[8:]) == mech_value1:
+            print(float(paragraph_find_geskon[8:]))
+            logger.debug(float(paragraph_find_geskon[8:]))
+            spec_find_value = round((float(paragraph_find_geskon[8:]) * 1), 2)
+            spec_find_cal = spec_find_value / mech_value2
+            print(format(spec_find_cal, ".3f"))
+            logger.debug(format(spec_find_cal, ".3f"))
+            format_spec_find_para = format(spec_find_cal, ".3f")
+            spec_find_para = str(format_spec_find_para) + "\n"
+            print(f"计算结果:\n{spec_find_para}")
+            logger.info(f"计算结果:\n{spec_find_para}")
+        else:
+            spec_find_value_geskon = round((float(paragraph_find_geskon[8:]) * 1), 2)
+            spec_find_value_geskon_cal = spec_find_value_geskon / mech_value2
+            spec_find_value_dcm = round((float(paragraph_find_dcm[8:]) * 1), 2)
+            spec_find_value_dcm_cal = spec_find_value_dcm / mech_value2
+            spec_find_value_mech = round((mech_value1 * 1), 2)
+            spec_find_value_mech_cal = spec_find_value_mech / mech_value2
+            format_spec_find_para_geskon = format(spec_find_value_geskon_cal, ".3f")
+            format_spec_find_para_dcm = format(spec_find_value_dcm_cal, ".3f")
+            format_spec_find_para_mech = format(spec_find_value_mech_cal, ".3f")
+            spec_find_para = "(geskon)" + str(format_spec_find_para_geskon) + "\n" + \
+                             "(dcm)" + str(format_spec_find_para_dcm) + "\n" + \
+                             "(mech)" + str(format_spec_find_para_mech) + "\n"
+            print(f"计算结果:\n{spec_find_para}")
+            logger.info(f"计算结果:\n{spec_find_para}")
+    elif find_result_geskon and not find_result_dcm and find_result_mech1 and find_result_mech2:
+        spec_find_result = True
+        if float(paragraph_find_geskon[8:]) == mech_value1:
+            print(float(paragraph_find_geskon[8:]))
+            spec_find_value = round((float(paragraph_find_geskon[8:]) * 1), 2)
+            spec_find_cal = spec_find_value / mech_value2
+            print(format(spec_find_cal, ".3f"))
+            format_spec_find_para = format(spec_find_cal, ".3f")
+            spec_find_para = str(format_spec_find_para) + "\n"
+            print(f"计算结果:\n{spec_find_para}")
+            logger.info(f"计算结果:\n{spec_find_para}")
+        else:
+            spec_find_value_geskon = round((float(paragraph_find_geskon[8:]) * 1), 2)
+            spec_find_value_geskon_cal = spec_find_value_geskon / mech_value2
+            spec_find_value_mech = round((mech_value1 * 1), 2)
+            spec_find_value_mech_cal = spec_find_value_mech / mech_value2
+            format_spec_find_para_geskon = format(spec_find_value_geskon_cal, ".3f")
+            format_spec_find_para_mech = format(spec_find_value_mech_cal, ".3f")
+            spec_find_para = "(geskon)" + str(format_spec_find_para_geskon) + "\n" + \
+                             "(mech)" + str(format_spec_find_para_mech) + "\n"
+            print(f"计算结果:\n{spec_find_para}")
+            logger.info(f"计算结果:\n{spec_find_para}")
+    elif not find_result_geskon and find_result_dcm and find_result_mech1 and find_result_mech2:
+        spec_find_result = True
+        if float(paragraph_find_dcm[8:]) == mech_value1:
+            print(float(paragraph_find_dcm[8:]))
+            spec_find_value = round((float(paragraph_find_dcm[8:]) * 1), 2)
+            spec_find_cal = spec_find_value / mech_value2
+            print(format(spec_find_cal, ".3f"))
+            format_spec_find_para = format(spec_find_cal, ".3f")
+            spec_find_para = str(format_spec_find_para) + "\n"
+            print(f"计算结果:\n{spec_find_para}")
+            logger.info(f"计算结果:\n{spec_find_para}")
+        else:
+            spec_find_value_dcm = round((float(paragraph_find_dcm[8:]) * 1), 2)
+            spec_find_value_dcm_cal = spec_find_value_dcm / mech_value2
+            spec_find_value_mech = round((mech_value1 * 1), 2)
+            spec_find_value_mech_cal = spec_find_value_mech / mech_value2
+            format_spec_find_para_dcm = format(spec_find_value_dcm_cal, ".3f")
+            format_spec_find_para_mech = format(spec_find_value_mech_cal, ".3f")
+            spec_find_para = "(dcm)" + str(format_spec_find_para_dcm) + "\n" + \
+                             "(mech)" + str(format_spec_find_para_mech) + "\n"
+            print(f"计算结果:\n{spec_find_para}")
+            logger.info(f"计算结果:\n{spec_find_para}")
+    elif not find_result_geskon and not find_result_dcm and find_result_mech1 and find_result_mech2:
+        spec_find_result = True
+        spec_find_value_mech = round((mech_value1 * 1), 2)
+        spec_find_value_mech_cal = spec_find_value_mech / mech_value2
+        format_spec_find_para_mech = format(spec_find_value_mech_cal, ".3f")
+        spec_find_para = str(format_spec_find_para_mech) + "\n"
+        print(f"计算结果:\n{spec_find_para}")
+        logger.info(f"计算结果:\n{spec_find_para}")
+    elif find_result_geskon and find_result_dcm and not find_result_mech1 and find_result_mech2:
+        spec_find_result = True
+        if float(paragraph_find_geskon[8:]) == float(paragraph_find_dcm[8:]):
+            print(float(paragraph_find_geskon[8:]))
+            spec_find_value = round((float(paragraph_find_geskon[8:]) * 1), 2)
+            spec_find_cal = spec_find_value / mech_value2
+            print(format(spec_find_cal, ".3f"))
+            format_spec_find_para = format(spec_find_cal, ".3f")
+            spec_find_para = str(format_spec_find_para) + "\n"
+            print(f"计算结果:\n{spec_find_para}")
+            logger.info(f"计算结果:\n{spec_find_para}")
+        else:
+            spec_find_value_geskon = round((float(paragraph_find_geskon[8:]) * 1), 2)
+            spec_find_value_geskon_cal = spec_find_value_geskon / mech_value2
+            spec_find_value_dcm = round((float(paragraph_find_dcm[8:]) * 1), 2)
+            spec_find_value_dcm_cal = spec_find_value_dcm / mech_value2
+            format_spec_find_para_geskon = format(spec_find_value_geskon_cal, ".3f")
+            format_spec_find_para_dcm = format(spec_find_value_dcm_cal, ".3f")
+            spec_find_para = "(geskon)" + str(format_spec_find_para_geskon) + "\n" + \
+                             "(dcm)" + str(format_spec_find_para_dcm) + "\n"
+            print(f"计算结果:\n{spec_find_para}")
+            logger.info(f"计算结果:\n{spec_find_para}")
+    elif find_result_geskon and not find_result_dcm and not find_result_mech1 and find_result_mech2:
+        spec_find_result = True
+        spec_find_value_geskon = round((float(paragraph_find_geskon[8:]) * 1), 2)
+        spec_find_value_geskon_cal = spec_find_value_geskon / mech_value2
+        format_spec_find_para_geskon = format(spec_find_value_geskon_cal, ".3f")
+        spec_find_para = str(format_spec_find_para_geskon) + "\n"
+        print(f"计算结果:\n{spec_find_para}")
+        logger.info(f"计算结果:\n{spec_find_para}")
+    elif not find_result_geskon and find_result_dcm and not find_result_mech1 and find_result_mech2:
+        spec_find_result = True
+        spec_find_value_dcm = round((float(paragraph_find_dcm[8:]) * 1), 2)
+        spec_find_value_dcm_cal = spec_find_value_dcm / mech_value2
+        format_spec_find_para_dcm = format(spec_find_value_dcm_cal, ".3f")
+        spec_find_para = str(format_spec_find_para_dcm) + "\n"
+        print(f"计算结果:\n{spec_find_para}")
+        logger.info(f"计算结果:\n{spec_find_para}")
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+# Speed_Rack_HSD_Start_1
+# Speed_Rack_HSD_Start_1 =
+# (6 * Smallest y-value of nEndStopHsd_HighSpeedDampingStart_XAS16 * RackToPinionRatioAvg) /360 * 1000 * SteeringGearRatioAvg)
+def spec_fun_find_variable_formula_52(file_geskon,file_dcm,file_mech_table):
+    logger.debug('调用函数<algorithm formula_52>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find="nEndStopHsd_HighSpeedDampingStart_XAS16", file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find="nEndStopHsd_HighSpeedDampingStart_XAS16", file_name=file_dcm)
+    find_result_mech1, mech_value1 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 15, 25, 3)
+    find_result_mech2, mech_value2 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 8, 25, 3)
+    get_value_result, smallest_find_geskon = get_Yvalue_smallest_from_KENNLINIE(paragraph_find_geskon)
+    get_value_result, smallest_find_dcm = get_Yvalue_smallest_from_KENNLINIE(paragraph_find_dcm)
+    # 定义可能在多处存在的值
+    dict_find_result_uunique = {"geskon": smallest_find_geskon, "dcm": smallest_find_dcm}
+    # 定义仅在一处存在的值
+    dict_find_result_stable = {"mech1": mech_value1, "mech2": mech_value2}
+    # 定义不重复的值
+    new_dict_find_result = dict_compare(dict_find_result_uunique)
+
+    if dict_check_valid(dict_find_result_stable) and dict_check_valid(new_dict_find_result):
+        spec_find_result = True
+        list_key = list(new_dict_find_result.keys())
+        for key in list_key:
+            print(f"key: {key}; value: {new_dict_find_result[key]}")
+            spec_find_value_cal = float(new_dict_find_result[key]) * 6 * dict_find_result_stable["mech1"] / \
+                                  (360 * 1000 * dict_find_result_stable["mech2"])
+            # 调整精度
+            spec_find_value_cal = round(spec_find_value_cal, 10)
+            if key == "value":
+                spec_find_para = str(spec_find_value_cal)+ "\n"
+            else:
+                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+
+# Speed_Rack_HSD_Start_2
+# Speed_Rack_HSD_Start_2 =
+# (6 * last y-value of nEndStopHsd_HighSpeedDampingStart_XAS16 * RackToPinionRatioAvg) /360 * 1000 * SteeringGearRatioAvg)
+def spec_fun_find_variable_formula_53(file_geskon,file_dcm,file_mech_table):
+    logger.debug('调用函数<algorithm formula_53>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find="nEndStopHsd_HighSpeedDampingStart_XAS16", file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find="nEndStopHsd_HighSpeedDampingStart_XAS16", file_name=file_dcm)
+    find_result_mech1, mech_value1 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 15, 25, 3)
+    find_result_mech2, mech_value2 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 8, 25, 3)
+    get_value_result, last_find_geskon = get_Yvalue_last_from_KENNLINIE(paragraph_find_geskon)
+    get_value_result, last_find_dcm = get_Yvalue_last_from_KENNLINIE(paragraph_find_dcm)
+    # 定义可能在多处存在的值
+    dict_find_result_uunique = {"geskon": last_find_geskon, "dcm": last_find_dcm}
+    # 定义仅在一处存在的值
+    dict_find_result_stable = {"mech1": mech_value1, "mech2": mech_value2}
+    # 定义不重复的值
+    new_dict_find_result = dict_compare(dict_find_result_uunique)
+
+    if dict_check_valid(dict_find_result_stable) and dict_check_valid(new_dict_find_result):
+        spec_find_result = True
+        list_key = list(new_dict_find_result.keys())
+        for key in list_key:
+            print(f"key: {key}; value: {new_dict_find_result[key]}")
+            spec_find_value_cal = float(new_dict_find_result[key]) * 6 * dict_find_result_stable["mech1"] / \
+                                  (360 * 1000 * dict_find_result_stable["mech2"])
+            # 调整精度
+            spec_find_value_cal = round(spec_find_value_cal, 10)
+            if key == "value":
+                spec_find_para = str(spec_find_value_cal)+ "\n"
+            else:
+                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+# Torque_HSD_Short_Before_Endstop
+# mEndStopHsd_MaxMotorTorque_FirstP_XDU16 or
+# Y Axis of mEndStopHsd_MaxMotorTorque_XAS16[0]
+def spec_fun_find_variable_formula_54(file_geskon,file_dcm):
+    logger.debug('调用函数<algorithm formula_54>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find="mEndStopHsd_MaxMotorTorque_FirstP_XDU16", file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find="mEndStopHsd_MaxMotorTorque_FirstP_XDU16", file_name=file_dcm)
+    get_value_result, first_find_geskon = get_Yvalue_first_from_KENNLINIE(paragraph_find_geskon)
+    get_value_result, first_find_dcm = get_Yvalue_first_from_KENNLINIE(paragraph_find_dcm)
+
+    find_result_geskon2, paragraph_find_geskon2 = \
+        find_text_intxt(variable_to_find="mEndStopHsd_MaxMotorTorque_XAS16", file_name=file_geskon)
+    find_result_dcm2, paragraph_find_dcm2 = \
+        find_text_intxt(variable_to_find="mEndStopHsd_MaxMotorTorque_XAS16", file_name=file_dcm)
+    get_value_result2, first_find_geskon2 = get_Yvalue_first_from_KENNLINIE(paragraph_find_geskon2)
+    get_value_result2, first_find_dcm2 = get_Yvalue_first_from_KENNLINIE(paragraph_find_dcm2)
+    # 定义可能在多处存在的值
+    dict_find_result_uunique = {"geskon1": first_find_geskon, "dcm1": first_find_dcm,
+                                "geskon2": first_find_geskon2, "dcm2": first_find_dcm2}
+    # 定义不重复的值
+    new_dict_find_result = dict_compare(dict_find_result_uunique)
+
+    if dict_check_valid(new_dict_find_result):
+        spec_find_result = True
+        list_key = list(new_dict_find_result.keys())
+        for key in list_key:
+            print(f"key: {key}; value: {new_dict_find_result[key]}")
+            spec_find_value_cal = float(new_dict_find_result[key])
+            # 调整精度
+            spec_find_value_cal = round(spec_find_value_cal, 6)
+            if key == "value":
+                spec_find_para = str(spec_find_value_cal)+ "\n"
+            else:
+                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+
+
+# Torque_HSD_High_Distance_2_Endstop
+# mEndStopHsd_MaxMotorTorque_LastP_XDU16 or
+# Y Axis of mEndStopHsd_MaxMotorTorque_XAS16[2]
+def spec_fun_find_variable_formula_55(file_geskon,file_dcm):
+    logger.debug('调用函数<algorithm formula_55>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find="mEndStopHsd_MaxMotorTorque_LastP_XDU16", file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find="mEndStopHsd_MaxMotorTorque_LastP_XDU16", file_name=file_dcm)
+    get_value_result, first_find_geskon = get_Yvalue_first_from_KENNLINIE(paragraph_find_geskon)
+    get_value_result, first_find_dcm = get_Yvalue_first_from_KENNLINIE(paragraph_find_dcm)
+
+    find_result_geskon2, paragraph_find_geskon2 = \
+        find_text_intxt(variable_to_find="mEndStopHsd_MaxMotorTorque_XAS16", file_name=file_geskon)
+    find_result_dcm2, paragraph_find_dcm2 = \
+        find_text_intxt(variable_to_find="mEndStopHsd_MaxMotorTorque_XAS16", file_name=file_dcm)
+    get_value_result2, first_find_geskon2 = get_Yvalue_last_from_KENNLINIE(paragraph_find_geskon2)
+    get_value_result2, first_find_dcm2 = get_Yvalue_last_from_KENNLINIE(paragraph_find_dcm2)
+    # 定义可能在多处存在的值
+    dict_find_result_uunique = {"geskon1": first_find_geskon, "dcm1": first_find_dcm,
+                                "geskon2": first_find_geskon2, "dcm2": first_find_dcm2}
+    # 定义不重复的值
+    new_dict_find_result = dict_compare(dict_find_result_uunique)
+
+    if dict_check_valid(new_dict_find_result):
+        spec_find_result = True
+        list_key = list(new_dict_find_result.keys())
+        for key in list_key:
+            print(f"key: {key}; value: {new_dict_find_result[key]}")
+            spec_find_value_cal = float(new_dict_find_result[key])
+            # 调整精度
+            spec_find_value_cal = round(spec_find_value_cal, 6)
+            if key == "value":
+                spec_find_para = str(spec_find_value_cal)+ "\n"
+            else:
+                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+
+# Speed_Tie_Rod_Damping_Activate
+# 6*x-value of xActDamp_TorqueDepOnRotorSpeed_XAU16[0]*(Sheet Steering Ratio $Z$16) / (​360 * 1000 * Sheet Steering Ratio $Z$9)
+def spec_fun_find_variable_formula_56(file_geskon,file_dcm,file_mech_table):
+    logger.debug('调用函数<algorithm formula_56>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find="xActDamp_TorqueDepOnRotorSpeed_XAU16", file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find="xActDamp_TorqueDepOnRotorSpeed_XAU16", file_name=file_dcm)
+    find_result_mech1, mech_value1 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 15, 25, 3)
+    find_result_mech2, mech_value2 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 8, 25, 3)
+    get_value_result, first_find_geskon = get_Xvalue_first_from_KENNLINIE(paragraph_find_geskon)
+    get_value_result, first_find_dcm = get_Xvalue_first_from_KENNLINIE(paragraph_find_dcm)
+    # 定义可能在多处存在的值
+    dict_find_result_uunique = {"geskon": first_find_geskon, "dcm": first_find_dcm}
+    # 定义仅在一处存在的值
+    dict_find_result_stable = {"mech1": mech_value1, "mech2": mech_value2}
+    # 定义不重复的值
+    new_dict_find_result = dict_compare(dict_find_result_uunique)
+
+    if dict_check_valid(dict_find_result_stable) and dict_check_valid(new_dict_find_result):
+        spec_find_result = True
+        list_key = list(new_dict_find_result.keys())
+        for key in list_key:
+            print(f"key: {key}; value: {new_dict_find_result[key]}")
+            spec_find_value_cal = float(new_dict_find_result[key]) * 6 * dict_find_result_stable["mech1"] / \
+                                  (360 * 1000 * dict_find_result_stable["mech2"])
+            # 调整精度
+            spec_find_value_cal = round(spec_find_value_cal, 10)
+            if key == "value":
+                spec_find_para = str(spec_find_value_cal)+ "\n"
+            else:
+                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+# Speed_Tie_Rod_Low
+# 6 * nEndStopHsd_MinNeededRotSpdVLow_XDU16 * (Sheet Steering Ratio $Z$16) /360 * 1000 * Sheet Steering Ratio $Z$9)
+def spec_fun_find_variable_formula_57(file_geskon,file_dcm,file_mech_table):
+    logger.debug('调用函数<algorithm formula_57>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find="nEndStopHsd_MinNeededRotSpdVLow_XDU16", file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find="nEndStopHsd_MinNeededRotSpdVLow_XDU16", file_name=file_dcm)
+    find_result_mech1, mech_value1 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 15, 25, 3)
+    find_result_mech2, mech_value2 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 8, 25, 3)
+    get_value_result, first_find_geskon = get_Yvalue_first_from_KENNLINIE(paragraph_find_geskon)
+    get_value_result, first_find_dcm = get_Yvalue_first_from_KENNLINIE(paragraph_find_dcm)
+    # 定义可能在多处存在的值
+    dict_find_result_uunique = {"geskon": first_find_geskon, "dcm": first_find_dcm}
+    # 定义仅在一处存在的值
+    dict_find_result_stable = {"mech1": mech_value1, "mech2": mech_value2}
+    # 定义不重复的值
+    new_dict_find_result = dict_compare(dict_find_result_uunique)
+
+    if dict_check_valid(dict_find_result_stable) and dict_check_valid(new_dict_find_result):
+        spec_find_result = True
+        list_key = list(new_dict_find_result.keys())
+        for key in list_key:
+            print(f"key: {key}; value: {new_dict_find_result[key]}")
+            spec_find_value_cal = float(new_dict_find_result[key]) * 6 * dict_find_result_stable["mech1"] / \
+                                  (360 * 1000 * dict_find_result_stable["mech2"])
+            # 调整精度
+            spec_find_value_cal = round(spec_find_value_cal, 10)
+            if key == "value":
+                spec_find_para = str(spec_find_value_cal)+ "\n"
+            else:
+                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+
+# Speed_Tie_Rod_High
+# 6 * nEndStopHsd_MinNeededRotSpdVHigh_XDU16 *(Sheet Steering Ratio $Z$16) / 360 * 1000 * Sheet Steering Ratio $Z$9)
+def spec_fun_find_variable_formula_58(file_geskon,file_dcm,file_mech_table):
+    logger.debug('调用函数<algorithm formula_58>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find="nEndStopHsd_MinNeededRotSpdVHigh_XDU16", file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find="nEndStopHsd_MinNeededRotSpdVHigh_XDU16", file_name=file_dcm)
+    find_result_mech1, mech_value1 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 15, 25, 3)
+    find_result_mech2, mech_value2 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 8, 25, 3)
+    get_value_result, first_find_geskon = get_Yvalue_first_from_KENNLINIE(paragraph_find_geskon)
+    get_value_result, first_find_dcm = get_Yvalue_first_from_KENNLINIE(paragraph_find_dcm)
+    # 定义可能在多处存在的值
+    dict_find_result_uunique = {"geskon": first_find_geskon, "dcm": first_find_dcm}
+    # 定义仅在一处存在的值
+    dict_find_result_stable = {"mech1": mech_value1, "mech2": mech_value2}
+    # 定义不重复的值
+    new_dict_find_result = dict_compare(dict_find_result_uunique)
+
+    if dict_check_valid(dict_find_result_stable) and dict_check_valid(new_dict_find_result):
+        spec_find_result = True
+        list_key = list(new_dict_find_result.keys())
+        for key in list_key:
+            print(f"key: {key}; value: {new_dict_find_result[key]}")
+            spec_find_value_cal = float(new_dict_find_result[key]) * 6 * dict_find_result_stable["mech1"] / \
+                                  (360 * 1000 * dict_find_result_stable["mech2"])
+            # 调整精度
+            spec_find_value_cal = round(spec_find_value_cal, 10)
+            if key == "value":
+                spec_find_para = str(spec_find_value_cal)+ "\n"
+            else:
+                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+# Speed_Tie_Rod_Undervoltage_Offset
+# 6 * nEndStopHsd_UndervoltOffset_XDU16 * (Sheet Steering Ratio $Z$16)  / 360 * 1000 * Sheet Steering Ratio $Z$9)
+def spec_fun_find_variable_formula_59(file_geskon,file_dcm,file_mech_table):
+    logger.debug('调用函数<algorithm formula_59>')
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon, paragraph_find_geskon = \
+        find_text_intxt(variable_to_find="nEndStopHsd_UndervoltOffset_XDU16", file_name=file_geskon)
+    find_result_dcm, paragraph_find_dcm = \
+        find_text_intxt(variable_to_find="nEndStopHsd_UndervoltOffset_XDU16", file_name=file_dcm)
+    find_result_mech1, mech_value1 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 15, 25, 3)
+    find_result_mech2, mech_value2 = \
+        fun_find_mech(file_mech_table, "Steering Ratio", 8, 25, 3)
+    get_value_result, first_find_geskon = get_Yvalue_first_from_KENNLINIE(paragraph_find_geskon)
+    get_value_result, first_find_dcm = get_Yvalue_first_from_KENNLINIE(paragraph_find_dcm)
+    # 定义可能在多处存在的值
+    dict_find_result_uunique = {"geskon": first_find_geskon, "dcm": first_find_dcm}
+    # 定义仅在一处存在的值
+    dict_find_result_stable = {"mech1": mech_value1, "mech2": mech_value2}
+    # 定义不重复的值
+    new_dict_find_result = dict_compare(dict_find_result_uunique)
+
+    if dict_check_valid(dict_find_result_stable) and dict_check_valid(new_dict_find_result):
+        spec_find_result = True
+        list_key = list(new_dict_find_result.keys())
+        for key in list_key:
+            print(f"key: {key}; value: {new_dict_find_result[key]}")
+            spec_find_value_cal = float(new_dict_find_result[key]) * 6 * dict_find_result_stable["mech1"] / \
+                                  (360 * 1000 * dict_find_result_stable["mech2"])
+            # 调整精度
+            spec_find_value_cal = round(spec_find_value_cal, 10)
+            if key == "value":
+                spec_find_para = str(spec_find_value_cal)+ "\n"
+            else:
+                spec_find_para = spec_find_para + f"({key})\n" + str(spec_find_value_cal) + "\n"
+    print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
+    return spec_find_result, spec_find_para
+
+
+
+
+# Distance_Travel_UpdateStatus_EndStopLearning_Rack
+# lEndStop_StatusChangeAllowedOffset_XDU16 + mEndStop_SpringTorque_XAS16's start position
+def spec_fun_find_variable_formula_60(file_geskon,file_dcm,file_mech_table):
+    print(f"algorithm formula_60")
+    logger.debug('调用函数<algorithm formula_60>')
+    search_in_sheet_list = ["SW-Endstop"]
+    spec_find_result = False
+    spec_find_para = ""
+    find_result_geskon1, paragraph_find_geskon1 = \
+        find_text_intxt(variable_to_find="lEndStop_StatusChangeAllowedOffset_XDU16", file_name=file_geskon)
+    find_result_dcm1, paragraph_find_dcm1 = \
+        find_text_intxt(variable_to_find="lEndStop_StatusChangeAllowedOffset_XDU16", file_name=file_dcm)
+    mech_value1 = fun_find_mech_by_para(file_mech_table,"lEndStop_StatusChangeAllowedOffset_XDU16", search_in_sheet_list)
+    get_value_result1, first_find_geskon1 = get_Yvalue_first_from_KENNLINIE(paragraph_find_geskon1)
+    get_value_result1, first_find_dcm1 = get_Yvalue_first_from_KENNLINIE(paragraph_find_dcm1)
+
+    find_result_geskon2, paragraph_find_geskon2 = \
+        find_text_intxt(variable_to_find="mEndStop_SpringTorque_XAS16", file_name=file_geskon)
+    find_result_dcm2, paragraph_find_dcm2 = \
+        find_text_intxt(variable_to_find="mEndStop_SpringTorque_XAS16", file_name=file_dcm)
+    get_value_result2, first_find_geskon2 = get_Xvalue_first_from_KENNLINIE(paragraph_find_geskon2)
+    get_value_result2, first_find_dcm2 = get_Xvalue_first_from_KENNLINIE(paragraph_find_dcm2)
+
+    # 定义可能在多处存在的值
+    dict_find_result_uunique1 = {"geskon1": first_find_geskon1, "dcm1": first_find_dcm1, "mech": mech_value1}
+    dict_find_result_uunique2 = {"geskon2": first_find_geskon2, "dcm2": first_find_dcm2}
+    # # 定义仅在一处存在的值
+    # dict_find_result_stable = {"mech1": mech_value1, "mech2": mech_value2}
+    # 定义不重复的值
+    new_dict_find_result1 = dict_compare(dict_find_result_uunique1)
+    new_dict_find_result2 = dict_compare(dict_find_result_uunique2)
+
+    if dict_check_valid(new_dict_find_result1) and dict_check_valid(new_dict_find_result2):
+        spec_find_result = True
+        list_key1 = list(new_dict_find_result1.keys())
+        list_key2 = list(new_dict_find_result2.keys())
+        for key1 in list_key1:
+            print(f"key: {key1}; value: {new_dict_find_result1[key1]}")
+            for key2 in list_key2:
+                spec_find_value_cal = float(new_dict_find_result1[key1]) + float(new_dict_find_result2[key2])
+                # 调整精度
+                spec_find_value_cal = round(spec_find_value_cal, 10)
+                if key1 == "value":
+                    spec_find_para = str(spec_find_value_cal)
+                else:
+                    spec_find_para = spec_find_para + f"({key1}AND{key2})\n" + str(spec_find_value_cal) + "\n"
     print(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
     logger.info(f"计算结果: {spec_find_result}; 计算值: {spec_find_para}")
     return spec_find_result, spec_find_para

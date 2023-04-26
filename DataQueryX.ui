@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>893</width>
+    <height>929</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DataQueryX</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Main Data Query</string>
+       </attribute>
+       <widget class="QTextEdit" name="textEdit_show">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>630</y>
+          <width>691</width>
+          <height>111</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>200</y>
+          <width>691</width>
+          <height>421</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Data Query</string>
+        </property>
+        <widget class="QPushButton" name="pushButton_start_data_query">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>390</y>
+           <width>101</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>开始查询数据</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="checkBox_is_get_previous_value">
+         <property name="geometry">
+          <rect>
+           <x>41</x>
+           <y>341</y>
+           <width>132</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Check Previous Value</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_series">
+         <property name="geometry">
+          <rect>
+           <x>41</x>
+           <y>367</y>
+           <width>52</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Set Series</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEdit_series">
+         <property name="geometry">
+          <rect>
+           <x>99</x>
+           <y>367</y>
+           <width>132</width>
+           <height>21</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>40</y>
+           <width>501</width>
+           <height>108</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_path_mech">
+            <property name="text">
+             <string>机械参数表</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lineEdit_path_mech"/>
+          </item>
+          <item row="0" column="2">
+           <widget class="QToolButton" name="toolButton_path_mech">
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_path_geskon">
+            <property name="text">
+             <string>Geskon文件</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lineEdit_path_geskon"/>
+          </item>
+          <item row="1" column="2">
+           <widget class="QToolButton" name="toolButton_path_geskon">
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_path_dcm">
+            <property name="text">
+             <string>DCM文件</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="lineEdit_path_dcm"/>
+          </item>
+          <item row="2" column="2">
+           <widget class="QToolButton" name="toolButton_path_dcm">
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_path_a2l">
+            <property name="text">
+             <string>A2L文件</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="lineEdit_path_a2l"/>
+          </item>
+          <item row="3" column="2">
+           <widget class="QToolButton" name="toolButton_path_a2l">
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>180</y>
+           <width>611</width>
+           <height>141</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_module_name_list">
+              <property name="text">
+               <string>Module Name</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="lineEdit_module_name_list"/>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="label_data_name_list">
+              <property name="text">
+               <string>Data Name</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLineEdit" name="lineEdit_data_name_list"/>
+            </item>
+            <item row="1" column="1">
+             <widget class="QListWidget" name="listWidget_rule_module_name">
+              <item>
+               <property name="text">
+                <string>... ...</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QListWidget" name="listWidget_rule_data_name">
+              <item>
+               <property name="text">
+                <string>... ...</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="1">
+           <widget class="QToolButton" name="toolButton_reflash_list">
+            <property name="text">
+             <string>Reflash</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>30</y>
+          <width>691</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Configuration</string>
+        </property>
+        <widget class="QPushButton" name="button_save">
+         <property name="geometry">
+          <rect>
+           <x>107</x>
+           <y>110</y>
+           <width>72</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;保存配置文件&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 9pt &quot;Microsoft YaHei UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Save</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_check">
+         <property name="geometry">
+          <rect>
+           <x>460</x>
+           <y>110</y>
+           <width>71</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;检查配置文件&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Check</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="button_load">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>110</y>
+           <width>72</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="mouseTracking">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;加载配置文件&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 9pt &quot;Microsoft YaHei UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Load</string>
+         </property>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>32</x>
+           <y>30</y>
+           <width>505</width>
+           <height>76</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_projectname">
+            <property name="text">
+             <string>Project Name</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_projectname_2">
+            <property name="text">
+             <string>Variant Suffix</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_username">
+            <property name="text">
+             <string>DoorsUserName</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="lineEdit_username">
+            <property name="font">
+             <font>
+              <pointsize>8</pointsize>
+             </font>
+            </property>
+            <property name="placeholderText">
+             <string>*Doors Username</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_password">
+            <property name="text">
+             <string>DoorsPassword</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QLineEdit" name="lineEdit_password">
+            <property name="font">
+             <font>
+              <pointsize>8</pointsize>
+             </font>
+            </property>
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+            <property name="placeholderText">
+             <string>*Doors Password</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="4">
+           <widget class="QCheckBox" name="checkBox_psw">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;显示密码&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Display</string>
+            </property>
+            <property name="tristate">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="3">
+           <widget class="QLineEdit" name="lineEdit_data_suffix"/>
+          </item>
+          <item row="0" column="1" colspan="3">
+           <widget class="QLineEdit" name="lineEdit_project_name"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Main Update Doors</string>
+       </attribute>
+       <widget class="QTextEdit" name="textEdit_show_2">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>640</y>
+          <width>691</width>
+          <height>111</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>691</width>
+          <height>541</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Update Doors</string>
+        </property>
+        <widget class="QPushButton" name="pushButton_start_update_doos">
+         <property name="geometry">
+          <rect>
+           <x>270</x>
+           <y>470</y>
+           <width>101</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>开始查询数据</string>
+         </property>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>42</x>
+           <y>30</y>
+           <width>621</width>
+           <height>241</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="2" column="3">
+           <widget class="QLabel" name="label_data_name_list_2">
+            <property name="text">
+             <string>Data Name</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="4">
+           <widget class="QListWidget" name="listWidget_rule_data_name_2">
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <item>
+             <property name="text">
+              <string>... ...</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLineEdit" name="lineEdit_module_name_list_2"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_series_2">
+            <property name="text">
+             <string>Select Series</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="4">
+           <widget class="QLineEdit" name="lineEdit_data_name_list_2"/>
+          </item>
+          <item row="3" column="2">
+           <widget class="QListWidget" name="listWidget_rule_module_name_2">
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <item>
+             <property name="text">
+              <string>... ...</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_module_name_list_2">
+            <property name="text">
+             <string>Module Name</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QComboBox" name="comboBox_series"/>
+          </item>
+          <item row="0" column="4">
+           <widget class="QToolButton" name="toolButton_reflash_list_2">
+            <property name="text">
+             <string>Reflash</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>893</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
