@@ -66,7 +66,7 @@ class MyData:
 
     def save_data_to_db(self):
         dbhander = MyDataBaseHander()
-        if self.data_name == "":
+        if self.data_name != "":
             if self.get_previous:
                 # 更新 value_previous
                 dbhander.update_data_update(self.data_name,

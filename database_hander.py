@@ -255,6 +255,30 @@ class MyDataBaseHander:
         # 返回一个列表，列表元素为元组(data_name, module_name, value_previous, value_new, series, is_pn_equal, is_gdm_equal)
         return select_result
 
+    def select_data_list_by_series_and_module(self, module_name, series="NS"):
+        """ 根据字段 module_name、 series 从数据库表 data_update 中获取数据清单 """
+        result = []
+        conn = self.connect()
+        if conn:
+            # 创建一个游标对象
+            cursor = conn.cursor()
+            sql = """
+            SELECT data_name, module_name, value_previous, value_new, series, is_pn_equal, is_gdm_equal
+            FROM data_update 
+            WHERE series = '{}' AND module_name = '{}'
+            """ .format(series, module_name)
+            try:
+                cursor.execute(sql)
+                result = cursor.fetchall()
+            except Exception as e:
+                print(f"Error querying data: {e}")
+        else:
+            print("Failed to connect to database.")
+        self.close_connection(conn)
+        select_result = result
+        # 返回一个列表，列表元素为元组(data_name, module_name, value_previous, value_new, series, is_pn_equal, is_gdm_equal)
+        return select_result
+
 
 
     def select_update_data_list(self):
@@ -278,6 +302,89 @@ class MyDataBaseHander:
         select_result = result
         # 返回一个列表，元组(data_name,module_name, value_previous, value_new, series, is_pn_equal, is_gdm_equal)作为列表元素
         return select_result
+
+
+    def select_update_data_list_by_series_and_module_and_data(self, series, module_name, data_name):
+        """ 从数据库表 data_update 中获取数据清单 """
+        conn = self.connect()
+        result = []
+        if conn:
+            # 创建一个游标对象
+            cursor = conn.cursor()
+            sql_temp = """
+            SELECT module_name, data_name, value_new, value_previous, is_pn_equal, is_gdm_equal
+            FROM data_update 
+            """
+            if module_name == "--ALL--":
+                sql_plus = """
+                WHERE series = '{}' 
+                """.format(series)
+            elif module_name != "--ALL--" and data_name == "--ALL--":
+                sql_plus = """
+                WHERE series = '{}' AND module_name = '{}'
+                """.format(series, module_name)
+            elif module_name != "--ALL--" and data_name != "--ALL--":
+                sql_plus = """
+                WHERE series = '{}' AND module_name = '{}' AND data_name = '{}'
+                """.format(series, module_name,data_name)
+            sql = sql_temp + sql_plus
+
+            try:
+                cursor.execute(sql)
+                result = cursor.fetchall()
+            except Exception as e:
+                print(f"Error querying data: {e}")
+        else:
+            print("Failed to connect to database.")
+        self.close_connection(conn)
+        select_result = result
+        # 返回一个列表，元组(data_name,module_name, value_previous, value_new, series, is_pn_equal, is_gdm_equal)作为列表元素
+        return select_result
+
+    def update_new_data_update_by_user(self, module_name,data_name, series, value_changed):
+        """ 保存更新后的 value_new 至数据库表 data_update """
+        conn = self.connect()
+        if conn:
+            # 创建一个游标对象
+            cursor = conn.cursor()
+            sql_update = """
+         UPDATE data_update
+         SET value_new = '{}'
+         WHERE data_name = '{}' AND module_name = '{}' AND series = '{}'
+         """.format(value_changed, data_name, module_name, series)
+
+            try:
+                cursor.execute(sql_update)
+                conn.commit()
+            except Exception as e:
+                print(f"Error querying data: {e}")
+            # commit the changes
+        else:
+            print("Failed to connect to database.")
+        self.close_connection(conn)
+        return
+
+    def update_new_data_delete_by_user(self, module_name, data_name, series):
+        """ 删除 data_update 数据"""
+        conn = self.connect()
+        if conn:
+            # 创建一个游标对象
+            cursor = conn.cursor()
+            sql = """
+           DELETE FROM data_update
+           WHERE data_name = '{}' AND module_name = '{}' AND series = '{}'
+           """.format(data_name, module_name, series)
+
+            try:
+                cursor.execute(sql)
+                conn.commit()
+            except Exception as e:
+                print(f"Error querying data: {e}")
+            # commit the changes
+        else:
+            print("Failed to connect to database.")
+        self.close_connection(conn)
+        return
 
 
 

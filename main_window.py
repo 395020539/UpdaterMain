@@ -3,7 +3,7 @@
 
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QWidget, QFileDialog, \
-    QMessageBox, QMenu, QTextBrowser, QVBoxLayout, QListWidgetItem
+    QMessageBox, QMenu, QTextBrowser, QVBoxLayout, QListWidgetItem, QTableWidgetItem
 from PySide6.QtCore import Qt, QObject, Signal, QThread, Slot, QRect
 from PySide6.QtGui import QAction
 import json
@@ -13,6 +13,8 @@ from DataQueryX import Ui_MainWindow
 from configuration_reader import MyPath, MyConfig
 from database_hander import MyDataBaseHander
 from data_finder import MyData
+from dxl_command_creator import MyDxlCommand
+from dxl_command_sender import DxlSender
 
 
 class MyWindow(QMainWindow, Ui_MainWindow):
@@ -26,26 +28,43 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.retranslateUi(self)
 
-        # 创建 QThread 对象
-        self.worker = MyTask_QueryData()
-        self.thread = QThread()
-        self.worker.moveToThread(self.thread)
-        self.thread.start()
+        # # 创建 QThread 对象
+        # self.worker = MyTask_QueryData()
+        # self.thread = QThread()
+        # self.worker.moveToThread(self.thread)
+        # self.thread.start()
 
-        # 连接任务的 started 信号到槽函数，禁用按钮
-        self.worker.started.connect(self.on_task_started)
-        #
-        # # 连接任务的 finished 信号到槽函数，恢复按钮
-        self.worker.finished.connect(self.on_task_finished)
-        self.worker.message.connect(self.on_message_send)
+        # 创建 QThread 对象 查询数据
+        self.thread_data_query = QThread()
+        self.worker_data_query = MyTask_DataQuery(None, None, None)
+        self.worker_data_query.moveToThread(self.thread_data_query)
+        self.thread_data_query.started.connect(self.worker_data_query.run)
+        self.worker_data_query.finished.connect(self.thread_data_query.quit)
+        self.worker_data_query.message.connect(self.on_message_send_data_query)
+
+
+        # 创建 QThread 对象 更新Doors
+        self.thread_doors = QThread()
+        self.worker_doors = MyTask_UpdateDoors(None)
+        self.worker_doors.moveToThread(self.thread_doors)
+        self.thread_doors.started.connect(self.worker_doors.run)
+        self.worker_doors.finished.connect(self.thread_doors.quit)
+        self.worker_doors.message.connect(self.on_message_send_doors)
+
+
+        # # 连接任务的 started 信号到槽函数，禁用按钮
+        # self.worker.started.connect(self.on_task_started)
+        # #
+        # # # 连接任务的 finished 信号到槽函数，恢复按钮
+        # self.worker.finished.connect(self.on_task_finished)
+
 
         # Data Query Group
         self.toolButton_path_mech.clicked.connect(self.select_file_mech)
         self.toolButton_path_geskon.clicked.connect(self.select_file_geskon)
         self.toolButton_path_dcm.clicked.connect(self.select_file_dcm)
         self.toolButton_path_a2l.clicked.connect(self.select_file_a2l)
-        self.pushButton_start_data_query.clicked.connect(self.confirm_data)
-        self.pushButton_start_data_query.clicked.connect(self.worker.query_data)
+        self.pushButton_start_data_query.clicked.connect(self.start_data_query)
 
         # Data Query Group
         self.button_load.clicked.connect(self.load_cfg)
@@ -53,10 +72,20 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_check.clicked.connect(self.check_config)
         self.checkBox_psw.stateChanged.connect(self.password_display)
         self.toolButton_reflash_list.clicked.connect(self.reflash_data_list)
+
+
+
+        # UpdateDoors Group
         self.toolButton_reflash_list_2.clicked.connect(self.reflash_data_list2)
+        self.toolButton_update_data_table.clicked.connect(self.update_data_table)
+        self.pushButton_start_update_doos.clicked.connect(self.start_update_doors)
+
 
         self.check_data_list_reflash()
         self.check_data_list_reflash_2()
+
+
+
 
     def select_file_mech(self):
         file_path_mech, _ = QFileDialog.getOpenFileName(self, "选择机械参数表", ".", "表格文件(*.xlsm);;所有文件(*)")
@@ -214,11 +243,8 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                 data_list.append(data[0])
             for i in module_list:
                 item = QListWidgetItem(i)
-                # item.setFlags(item.flags() | Qt.ItemIsUserCheckable)  # Add the checkable flag
-                # item.setCheckState(Qt.Unchecked)  # Set the initial check state to unchecked
                 self.listWidget_rule_module_name.addItem(item)
-            # for i in data_list:
-            #     self.listWidget_rule_data_name.addItem(i)
+
 
 
     def check_data_list_reflash(self):
@@ -264,67 +290,6 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         print("series", series)
         select_module_name = self.lineEdit_module_name_list.text()
         select_data_name = self.lineEdit_data_name_list.text()
-        print("select_module_name: ",select_module_name, "select_data_name: ",select_data_name)
-        db_data_list = []
-        if select_module_name == "--ALL--":
-            dbhander_temp = MyDataBaseHander()
-            db_data_list = dbhander_temp.select_data_list()
-        elif select_module_name != "--ALL--":
-            if select_data_name == "--ALL--":
-                dbhander_temp = MyDataBaseHander()
-                db_data_list = dbhander_temp.select_data_list_by_module_name(select_module_name)
-            else:
-                db_data_list.append((select_data_name, select_module_name))
-
-        print("db_data_list = ", db_data_list)
-
-        print("start_data_query")
-
-        # 创建 QThread 对象
-        self.worker = MyTask_QueryData()
-        self.thread = QThread()
-        self.worker.moveToThread(self.thread)
-        self.thread.start()
-        self.textEdit_show.clear()
-        for data_tuple in db_data_list:
-            # data_tuple = (data_name, module_name)
-            print()
-            data_name, module_name, value_new, value_previous = self.worker.query_data(data_tuple,series, get_previous)
-            print(f"data_name is {data_tuple[0]}, data_module is {data_tuple[1]}")
-            self.textEdit_show.append(f"模块名称: {module_name}")
-            self.textEdit_show.append(f"数据名称: {data_name}")
-            self.textEdit_show.append(f"参数值: {value_new}")
-            if value_previous != "":
-                self.textEdit_show.append(f"参数值: {value_previous}")
-
-
-        #
-        # # # 连接任务的 started 信号到槽函数，禁用按钮
-        # # self.worker.started.connect(self.on_task_started)
-        # #
-        # # # 连接任务的 finished 信号到槽函数，恢复按钮
-        # # self.worker.finished.connect(self.on_task_finished)
-        #
-        # 任务执行完毕后，清理并退出线程
-        self.worker.deleteLater()
-        self.thread.quit()
-        self.thread.wait()
-
-    def confirm_data(self):
-        global db_data_list
-        global series
-        global get_previous
-        get_previous = False
-        if self.checkBox_is_get_previous_value.isChecked():
-            get_previous = True
-        if self.lineEdit_series.text() == "":
-            series = "NS"
-        else:
-            series = self.lineEdit_series.text()
-        print("get_previous = ", get_previous)
-        print("series", series)
-        select_module_name = self.lineEdit_module_name_list.text()
-        select_data_name = self.lineEdit_data_name_list.text()
         print("select_module_name: ", select_module_name, "select_data_name: ", select_data_name)
         db_data_list = []
         if select_module_name == "--ALL--":
@@ -338,6 +303,20 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                 db_data_list.append((select_data_name, select_module_name))
 
         print("db_data_list = ", db_data_list)
+        if len(db_data_list) == 0:
+            self.create_message_box("Nodata")
+        else:
+            response = self.create_message_box("Confirmation")
+            if response == QMessageBox.Ok:
+                self.worker_data_query.db_data_list = db_data_list
+                self.worker_data_query.series = series
+                self.worker_data_query.get_previous = get_previous
+                self.thread_data_query.start()
+
+
+
+
+
 
     def on_message_send(self, data_name, module_name, value_new, value_previous):
         print("信号：", data_name, module_name, value_new, value_previous)
@@ -368,14 +347,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         print("更新列表")
         self.listWidget_rule_module_name_2.clear()
         self.listWidget_rule_data_name_2.clear()
-        # item1 = QListWidgetItem("--ALL--")
-        # item1.setFlags(item1.flags() | Qt.ItemIsUserCheckable)  # Add the checkable flag
-        # item1.setCheckState(Qt.Unchecked)  # Set the initial check state to unchecked
-        # item2 = QListWidgetItem("--ALL--")
-        # item2.setFlags(item2.flags() | Qt.ItemIsUserCheckable)  # Add the checkable flag
-        # item2.setCheckState(Qt.Unchecked)  # Set the initial check state to unchecked
-        # self.listWidget_rule_module_name_2.addItem(item1)
-        # self.listWidget_rule_data_name_2.addItem(item2)
+
 
         module_list = ["--ALL--"]
         data_list = ["--ALL--"]
@@ -405,8 +377,13 @@ class MyWindow(QMainWindow, Ui_MainWindow):
 
     def check_data_list_reflash_2(self):
         def on_select_series_changed():
+            self.lineEdit_value_changed.clear()
+            self.lineEdit_value_current.clear()
+            self.tableWidget_update_data.setRowCount(0)
             self.listWidget_rule_module_name_2.clear()
             self.listWidget_rule_data_name_2.clear()
+            self.lineEdit_module_name_list_2.setText("--ALL--")
+            self.lineEdit_data_name_list_2.setText("--ALL--")
             series = self.comboBox_series.currentText()
             print("选择的series是", series)
             module_list = ["--ALL--"]
@@ -419,60 +396,272 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                         module_list.append(i[1])
                     data_list.append(i[0])
 
-            # for module in module_list:
-            #     item_module = QListWidgetItem(module)
-            #     item_module.setFlags(item_module.flags() | Qt.ItemIsUserCheckable)  # Add the checkable flag
-            #     item_module.setCheckState(Qt.Unchecked)  # Set the initial check state to unchecked
                 self.listWidget_rule_module_name_2.addItems(module_list)
-
-            # for data in data_list:
-            #     item_data = QListWidgetItem(data)
-            #     item_data.setFlags(item_data.flags() | Qt.ItemIsUserCheckable)  # Add the checkable flag
-            #     item_data.setCheckState(Qt.Unchecked)  # Set the initial check state to unchecked
                 self.listWidget_rule_data_name_2.addItems(data_list)
 
         def on_item_select_changed_module():
+            self.lineEdit_value_changed.clear()
+            self.lineEdit_value_current.clear()
+            self.tableWidget_update_data.setRowCount(0)
+            self.lineEdit_data_name_list_2.setText("--ALL--")
             items = self.listWidget_rule_module_name_2.selectedItems()
             for item in items:
                 module = item.text()
                 print("当前选择的module是",module)
+                self.lineEdit_module_name_list_2.setText(module)
                 if module == "--ALL--":
                     print("当前选择的module是: 全部")
                     self.listWidget_rule_data_name_2.clear()
                     self.listWidget_rule_data_name_2.addItem("--ALL--")
-                    items = self.listWidget_rule_module_name_2.selectedItems()
                     self.listWidget_rule_module_name_2.selectAll()
-                    item.setSelected(True)
                 else:
                     current_item = self.listWidget_rule_module_name_2.currentItem()
                     current_module = current_item.text()
+                    series = self.comboBox_series.currentText()
                     print(f"当前选择的module是: {current_module}")
                     self.listWidget_rule_data_name_2.clear()
+                    data_list = ["--ALL--"]
                     dbhander_temp = MyDataBaseHander()
-                    data_list = []
-                    db_data_list = dbhander_temp.select_data_list_by_module_name(current_module)
+                    db_data_list = dbhander_temp.select_data_list_by_series_and_module(current_module,series)
                     if db_data_list is not None:
                         for i in db_data_list:
                             data_list.append(i[0])
                     self.listWidget_rule_data_name_2.addItems(data_list)
-                    if len(items) > 1:
-                        print("选择了多个module")
-                        self.listWidget_rule_data_name_2.selectAll()
-                        for index in range(self.listWidget_rule_data_name_2.count()):
-                            item = self.listWidget_rule_data_name_2.item(index)
-                            item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
-                            item.setSelected(True)
+
+
+        def on_item_select_changed_data():
+            self.lineEdit_value_changed.clear()
+            self.lineEdit_value_current.clear()
+            self.tableWidget_update_data.setRowCount(0)
+            self.lineEdit_value_changed.clear()
+            items = self.listWidget_rule_data_name_2.selectedItems()
+            for item in items:
+                data_name = item.text()
+                print("当前选择的data_name是", data_name)
+                self.lineEdit_data_name_list_2.setText(data_name)
+
+        def on_table_cell_changed():
+            self.lineEdit_value_changed.clear()
+            self.lineEdit_value_current.clear()
+            print("点击了表格")
+            self.lineEdit_value_changed.clear()
+            current_row = self.tableWidget_update_data.currentRow()
+            if current_row >= 0:
+                row_contents = []
+                for column in range(self.tableWidget_update_data.columnCount()):
+                    item = self.tableWidget_update_data.item(current_row, column)
+                    if item is not None:
+                        row_contents.append(item.text())
+                print("当前行数据为", row_contents)
+                value_new = row_contents[2]
+                if value_new != "" and value_new is not None:
+                    self.lineEdit_value_current.setText(value_new)
+
+        def on_click_change_data_putton():
+            print("点击了修改数据")
+            current_row = self.tableWidget_update_data.currentRow()
+            row_contents = []
+            if current_row >= 0:
+                for column in range(self.tableWidget_update_data.columnCount()):
+                    item = self.tableWidget_update_data.item(current_row, column)
+                    row_contents.append(item.text())
+                print("当前行数据为", row_contents)
+                series = self.comboBox_series.currentText()
+                module_name = row_contents[0]
+                data_name = row_contents[1]
+                value_new = row_contents[2]
+                value_previous = row_contents[3]
+                value_changed = self.lineEdit_value_changed.text()
+
+                response = self.create_message_box("Confirmation")
+                if response == QMessageBox.Ok:
+                    dbhander_temp = MyDataBaseHander()
+                    dbhander_temp.update_new_data_update_by_user(module_name,data_name, series, value_changed)
+                    self.update_data_table()
+            else:
+                self.create_message_box("Cancel")
 
 
 
+        def on_click_delete_data_putton():
+            print("点击了删除数据")
+            current_row = self.tableWidget_update_data.currentRow()
+            row_contents = []
+            if current_row >= 0:
+                for column in range(self.tableWidget_update_data.columnCount()):
+                    item = self.tableWidget_update_data.item(current_row, column)
+                    row_contents.append(item.text())
+                print("当前行数据为", row_contents)
+                series = self.comboBox_series.currentText()
+                module_name = row_contents[0]
+                data_name = row_contents[1]
 
 
+                response = self.create_message_box("Confirmation")
+                if response == QMessageBox.Ok:
+                    dbhander_temp = MyDataBaseHander()
+                    dbhander_temp.update_new_data_delete_by_user(module_name, data_name, series)
+                    self.update_data_table()
+                    self.create_message_box("Continue")
+            else:
+                self.create_message_box("Cancel")
 
 
+        # series 更新
         self.comboBox_series.currentTextChanged.connect(on_select_series_changed)
-
+        # module_name 更新
         self.listWidget_rule_module_name_2.itemClicked.connect(on_item_select_changed_module)
-        # self.listWidget_rule_data_name_2.itemClicked.connect(on_item_select_changed_data)
+        # data_name 更新
+        self.listWidget_rule_data_name_2.itemClicked.connect(on_item_select_changed_data)
+        # change_data 按钮点击
+        self.pushButton_changedata_user.clicked.connect(on_click_change_data_putton)
+        # delete_data 按钮点击
+        self.pushButton_changedata_delete.clicked.connect(on_click_delete_data_putton)
+        # 刷新表格 按钮点击
+        self.tableWidget_update_data.currentCellChanged.connect(on_table_cell_changed)
+
+
+    def update_data_table(self):
+        self.lineEdit_value_changed.clear()
+        self.lineEdit_value_current.clear()
+        self.tableWidget_update_data.setRowCount(0)
+        print("点击了更新列表")
+        select_module = self.lineEdit_module_name_list_2.text()
+        select_data = self.lineEdit_data_name_list_2.text()
+        select_series = self.comboBox_series.currentText()
+        print(f"当前选择的module是{select_module}")
+        print(f"当前选择的data是{select_data}")
+        print(f"当前选择的series是{select_series}")
+
+        dbhander_temp = MyDataBaseHander()
+        db_data_list = dbhander_temp.select_update_data_list_by_series_and_module_and_data(select_series,select_module,select_data)
+        print(db_data_list)
+        # set the number of colums in the table
+        self.tableWidget_update_data.setColumnCount(6)
+        header = ["Module", "Data Name", "New Value", "Current Value", "P/N Equal", "G/D/M Equal"]
+        # set the number of rows in the table
+        self.tableWidget_update_data.setHorizontalHeaderLabels(header)
+        if db_data_list is not None:
+            self.tableWidget_update_data.setRowCount(len(db_data_list))
+            for i, row in enumerate(db_data_list):
+                for j, value in enumerate(row):
+                    item = QTableWidgetItem(str(value))
+                    self.tableWidget_update_data.setItem(i, j, item)
+
+
+    def create_message_box(self, type):
+        if type == "Confirmation":
+            # create a messagebox
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("Confirmation")
+            msg_box.setIcon(QMessageBox.Question)
+            msg_box.setText("Do you want to continue?")
+            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+            # get user response
+            response = msg_box.exec()
+
+            # check user response
+            if response == QMessageBox.Ok:
+                print("User clicked Ok")
+            elif response == QMessageBox.Cancel:
+                print("User clicked Cancel")
+
+            return response
+
+        if type == "Cancel":
+            # create a messagebox
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("Confirmation")
+            msg_box.setIcon(QMessageBox.Information)
+            msg_box.setText("No data selected")
+            msg_box.setStandardButtons(QMessageBox.Cancel)
+
+            # get user response
+            response = msg_box.exec()
+
+            # check user response
+            if response == QMessageBox.Ok:
+                print("User clicked Ok")
+            elif response == QMessageBox.Cancel:
+                print("User clicked Cancel")
+
+            return response
+
+        if type == "Continue":
+            # create a messagebox
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("Confirmation")
+            msg_box.setIcon(QMessageBox.Information)
+            msg_box.setText("Continue")
+            msg_box.setStandardButtons(QMessageBox.Ok)
+
+            # get user response
+            response = msg_box.exec()
+
+            # check user response
+            if response == QMessageBox.Ok:
+                print("User clicked Ok")
+            elif response == QMessageBox.Cancel:
+                print("User clicked Cancel")
+
+            return response
+
+        if type == "Nodata":
+            # create a messagebox
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("Confirmation")
+            msg_box.setIcon(QMessageBox.Information)
+            msg_box.setText("No data needs to be updated, please check.")
+            msg_box.setStandardButtons(QMessageBox.Ok)
+
+            # get user response
+            response = msg_box.exec()
+
+            # check user response
+            if response == QMessageBox.Ok:
+                print("User clicked Ok")
+            elif response == QMessageBox.Cancel:
+                print("User clicked Cancel")
+
+            return response
+
+
+    def on_message_send_doors(self,str):
+        print("信号：", str)
+        self.textEdit_show_2.append(str)
+
+    def on_message_send_data_query(self,str):
+        print("信号：", str)
+        self.textEdit_show.append(str)
+
+    def start_update_doors(self):
+        print("点击了上传Doors")
+
+        select_module = self.lineEdit_module_name_list_2.text()
+        select_data = self.lineEdit_data_name_list_2.text()
+        select_series = self.comboBox_series.currentText()
+        print(f"当前选择的module是{select_module}")
+        print(f"当前选择的data是{select_data}")
+        print(f"当前选择的series是{select_series}")
+        update_list = []
+        dbhander_temp = MyDataBaseHander()
+        db_data_list = dbhander_temp.select_update_data_list_by_series_and_module_and_data(select_series,select_module,select_data)
+        print(db_data_list)
+        for i in db_data_list:
+            if i[4] == 0:
+                update_list.append((i[1], i[0], i[2]))
+        print(update_list)
+        print(len(update_list))
+        if len(update_list) == 0:
+            self.create_message_box("Nodata")
+        else:
+            response = self.create_message_box("Confirmation")
+            if response == QMessageBox.Ok:
+                self.worker_doors.update_list = update_list
+                self.thread_doors.start()
+
+
 
 
 
@@ -512,6 +701,119 @@ class MyTask_QueryData(QObject):
         self.finished.emit()
 
         return mydata.data_name,mydata.module_name,mydata.value_new,mydata.value_previous
+
+class MyTask_DataQuery(QObject):
+    started = Signal()
+    finished = Signal()
+    message = Signal(str)
+
+    def __init__(self, data_list, series, get_previous):
+        super().__init__()
+        self.db_data_list = data_list
+        self.series = series
+        self.get_previous = get_previous
+
+    def run(self):
+        # 发出 started 信号以通知 UI 线程
+        self.started.emit()
+        self.message.emit(f"开始查找... 请耐心等待...")
+        print("data_list in thread: ", self.db_data_list)
+
+        t_start = time.perf_counter()
+        for data_tuple in self.db_data_list:
+            print(data_tuple[0], data_tuple[1])
+            print("构建mydata")
+            mydata = MyData(data_tuple[0], data_tuple[1], self.series, self.get_previous)
+            print("构建完成mydata", mydata.data_name, mydata.module_name, mydata.value_new, mydata.value_previous)
+            if mydata.value_previous == "":
+                self.message.emit(f"数据名: {mydata.data_name}, 模块名: {mydata.module_name}: \n查询值: {mydata.value_new}")
+            else:
+                self.message.emit(f"数据名: {mydata.data_name}, 模块名: {mydata.module_name}: \n查询值: {mydata.value_new}\n"
+                                  f"当前值: {mydata.value_previous}")
+
+        t_end = time.perf_counter()
+        t_cost = t_end - t_start
+        print(f'运行耗时:{t_cost:.8f}s')
+        # 任务完成后发出 finished 信号
+        self.finished.emit()
+
+
+
+class MyTask_UpdateDoors(QObject):
+
+    started = Signal()
+    finished = Signal()
+    message = Signal(str)
+
+    def __init__(self, update_list):
+        super().__init__()
+        self.update_list = update_list
+
+    def run(self):
+        self.started.emit()
+        self.message.emit(f"开始发送... 请耐心等待...")
+        print("update_list in thread: ", self.update_list)
+
+        # 构建Dxl清单
+        mydxlcreator = MyDxlCommand()
+        mydxl_list = mydxlcreator.create_update_dxl(self.update_list)
+
+        message_number = len(mydxl_list)
+        self.message.emit(f"数据总数: {message_number}")
+        response_number = 0
+        message_counter = 0
+        # 实例化Mysender
+        mysender = DxlSender()
+        mysender.mydoors.run_doors()
+
+        for cmd in mydxl_list:
+            message_counter += 1
+            print(f"开始发送第{message_counter}条")
+            self.message.emit(f"开始发送第 {message_counter} 条...")
+            print(cmd)
+            response = mysender.send_dxl_command_single(cmd)
+            if response != "":
+                response_number += 1
+                print(f"第{message_counter}条发送成功")
+                self.message.emit(f"第{message_counter}条发送成功。")
+            else:
+                print(f"第{message_counter}条发送失败")
+                self.message.emit(f"第 {message_counter} 条发送成功。")
+            print(f"发送成功{response_number}条")
+        print(f"需发送{message_number}条，发送成功{response_number}条")
+        self.message.emit(f"发送结束，需发送总数 {message_number} 条，发送成功 {response_number} 条。")
+
+        mysender.mydoors.kill_doors()
+        self.finished.emit()
+
+
+
+    def query_data(self):
+        global db_data_list
+        global series
+        global get_previous
+        # 发出 started 信号以通知 UI 线程
+        self.started.emit()
+
+        t_start = time.perf_counter()
+        for data_tuple in db_data_list:
+            print(data_tuple[0], data_tuple[1])
+            print("构建mydata")
+            mydata = MyData(data_tuple[0], data_tuple[1], series, get_previous)
+            print("构建完成mydata", mydata.data_name, mydata.module_name, mydata.value_new, mydata.value_previous)
+            self.message.emit(mydata.data_name, mydata.module_name, mydata.value_new, mydata.value_previous)
+
+        # print("运行中")
+        # time.sleep(5)
+        t_end = time.perf_counter()
+        t_cost = t_end - t_start
+        print(f'运行耗时:{t_cost:.8f}s')
+        # print("运行结束")
+
+        # 任务完成后发出 finished 信号
+        self.finished.emit()
+
+        return mydata.data_name, mydata.module_name, mydata.value_new, mydata.value_previous
 
 
 
