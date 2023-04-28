@@ -11,16 +11,18 @@
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComboBox,
-    QGridLayout, QGroupBox, QHBoxLayout, QHeaderView,
-    QLabel, QLineEdit, QListWidget, QListWidgetItem,
-    QMainWindow, QMenuBar, QPushButton, QSizePolicy,
-    QStatusBar, QTabWidget, QTableWidget, QTableWidgetItem,
-    QTextEdit, QToolButton, QWidget)
+from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
+    QCursor, QFont, QFontDatabase, QGradient,
+    QIcon, QImage, QKeySequence, QLinearGradient,
+    QPainter, QPalette, QPixmap, QRadialGradient,
+    QTransform)
+from PySide6.QtWidgets import (QAbstractItemView, QAbstractScrollArea, QApplication, QCheckBox,
+    QComboBox, QGridLayout, QGroupBox, QHBoxLayout,
+    QHeaderView, QLabel, QLineEdit, QListWidget,
+    QListWidgetItem, QMainWindow, QMenu, QMenuBar,
+    QProgressBar, QPushButton, QSizePolicy, QStatusBar,
+    QTabWidget, QTableWidget, QTableWidgetItem, QTextEdit,
+    QToolButton, QWidget)
 import my_qrc
 
 class Ui_MainWindow(object):
@@ -34,6 +36,10 @@ class Ui_MainWindow(object):
         icon = QIcon()
         icon.addFile(u":/pic/Res/pic/app_logo.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
+        self.actionExit = QAction(MainWindow)
+        self.actionExit.setObjectName(u"actionExit")
+        self.actionClear_Database = QAction(MainWindow)
+        self.actionClear_Database.setObjectName(u"actionClear_Database")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout_5 = QGridLayout(self.centralwidget)
@@ -41,6 +47,7 @@ class Ui_MainWindow(object):
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
         self.tabWidget.setEnabled(True)
+        self.tabWidget.setCursor(QCursor(Qt.ArrowCursor))
         self.tabWidget.setDocumentMode(False)
         self.tabWidget.setTabsClosable(False)
         self.tab = QWidget()
@@ -48,6 +55,7 @@ class Ui_MainWindow(object):
         self.textEdit_show = QTextEdit(self.tab)
         self.textEdit_show.setObjectName(u"textEdit_show")
         self.textEdit_show.setGeometry(QRect(40, 630, 691, 111))
+        self.textEdit_show.viewport().setProperty("cursor", QCursor(Qt.IBeamCursor))
         self.textEdit_show.setReadOnly(True)
         self.groupBox = QGroupBox(self.tab)
         self.groupBox.setObjectName(u"groupBox")
@@ -55,9 +63,10 @@ class Ui_MainWindow(object):
         self.pushButton_start_data_query = QPushButton(self.groupBox)
         self.pushButton_start_data_query.setObjectName(u"pushButton_start_data_query")
         self.pushButton_start_data_query.setGeometry(QRect(290, 243, 101, 31))
+        self.pushButton_start_data_query.setCursor(QCursor(Qt.PointingHandCursor))
         self.checkBox_is_get_previous_value = QCheckBox(self.groupBox)
         self.checkBox_is_get_previous_value.setObjectName(u"checkBox_is_get_previous_value")
-        self.checkBox_is_get_previous_value.setGeometry(QRect(41, 201, 132, 20))
+        self.checkBox_is_get_previous_value.setGeometry(QRect(41, 201, 151, 20))
         self.label_series = QLabel(self.groupBox)
         self.label_series.setObjectName(u"label_series")
         self.label_series.setGeometry(QRect(41, 227, 52, 16))
@@ -68,6 +77,7 @@ class Ui_MainWindow(object):
         self.toolButton_reflash_list = QToolButton(self.groupBox)
         self.toolButton_reflash_list.setObjectName(u"toolButton_reflash_list")
         self.toolButton_reflash_list.setGeometry(QRect(30, 30, 51, 22))
+        self.toolButton_reflash_list.setCursor(QCursor(Qt.PointingHandCursor))
         icon1 = QIcon()
         icon1.addFile(u":/icon/Res/icon/refresh_icon.png", QSize(), QIcon.Normal, QIcon.Off)
         self.toolButton_reflash_list.setIcon(icon1)
@@ -159,6 +169,7 @@ class Ui_MainWindow(object):
         self.pushButton_clear_cfg.setObjectName(u"pushButton_clear_cfg")
         self.pushButton_clear_cfg.setGeometry(QRect(193, 31, 75, 24))
         self.pushButton_clear_cfg.setFont(font1)
+        self.pushButton_clear_cfg.setCursor(QCursor(Qt.PointingHandCursor))
         icon5 = QIcon()
         icon5.addFile(u":/icon/Res/icon/delete_icon.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_clear_cfg.setIcon(icon5)
@@ -218,6 +229,7 @@ class Ui_MainWindow(object):
 
         self.toolButton_path_mech = QToolButton(self.layoutWidget1)
         self.toolButton_path_mech.setObjectName(u"toolButton_path_mech")
+        self.toolButton_path_mech.setCursor(QCursor(Qt.OpenHandCursor))
 
         self.gridLayout.addWidget(self.toolButton_path_mech, 3, 4, 1, 1)
 
@@ -228,6 +240,7 @@ class Ui_MainWindow(object):
 
         self.toolButton_path_geskon = QToolButton(self.layoutWidget1)
         self.toolButton_path_geskon.setObjectName(u"toolButton_path_geskon")
+        self.toolButton_path_geskon.setCursor(QCursor(Qt.OpenHandCursor))
 
         self.gridLayout.addWidget(self.toolButton_path_geskon, 4, 4, 1, 1)
 
@@ -238,6 +251,7 @@ class Ui_MainWindow(object):
 
         self.toolButton_path_dcm = QToolButton(self.layoutWidget1)
         self.toolButton_path_dcm.setObjectName(u"toolButton_path_dcm")
+        self.toolButton_path_dcm.setCursor(QCursor(Qt.OpenHandCursor))
 
         self.gridLayout.addWidget(self.toolButton_path_dcm, 5, 4, 1, 1)
 
@@ -248,6 +262,7 @@ class Ui_MainWindow(object):
 
         self.toolButton_path_a2l = QToolButton(self.layoutWidget1)
         self.toolButton_path_a2l.setObjectName(u"toolButton_path_a2l")
+        self.toolButton_path_a2l.setCursor(QCursor(Qt.OpenHandCursor))
 
         self.gridLayout.addWidget(self.toolButton_path_a2l, 6, 4, 1, 1)
 
@@ -291,23 +306,44 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.lineEdit_path_a2l, 6, 1, 1, 3)
 
-        self.toolButton_clear_show1 = QToolButton(self.tab)
-        self.toolButton_clear_show1.setObjectName(u"toolButton_clear_show1")
-        self.toolButton_clear_show1.setGeometry(QRect(710, 740, 21, 22))
-        icon6 = QIcon()
-        icon6.addFile(u":/icon/Res/icon/eraser_icon.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.toolButton_clear_show1.setIcon(icon6)
         self.label = QLabel(self.tab)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(670, -10, 81, 61))
         self.label.setPixmap(QPixmap(u":/pic/Res/pic/bhss_logo-removebg-preview.png"))
         self.label.setScaledContents(True)
+        self.layoutWidget2 = QWidget(self.tab)
+        self.layoutWidget2.setObjectName(u"layoutWidget2")
+        self.layoutWidget2.setGeometry(QRect(40, 740, 691, 25))
+        self.gridLayout_4 = QGridLayout(self.layoutWidget2)
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.progressBar = QProgressBar(self.layoutWidget2)
+        self.progressBar.setObjectName(u"progressBar")
+        self.progressBar.setStyleSheet(u"    QProgressBar::chunk {\n"
+"        background-color: green;\n"
+"    }")
+        self.progressBar.setValue(0)
+        self.progressBar.setAlignment(Qt.AlignCenter)
+        self.progressBar.setTextVisible(True)
+
+        self.gridLayout_4.addWidget(self.progressBar, 0, 0, 1, 1)
+
+        self.toolButton_clear_show1 = QToolButton(self.layoutWidget2)
+        self.toolButton_clear_show1.setObjectName(u"toolButton_clear_show1")
+        self.toolButton_clear_show1.setCursor(QCursor(Qt.PointingHandCursor))
+        icon6 = QIcon()
+        icon6.addFile(u":/icon/Res/icon/eraser_icon.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.toolButton_clear_show1.setIcon(icon6)
+
+        self.gridLayout_4.addWidget(self.toolButton_clear_show1, 0, 1, 1, 1)
+
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QWidget()
         self.tab_2.setObjectName(u"tab_2")
         self.textEdit_show_2 = QTextEdit(self.tab_2)
         self.textEdit_show_2.setObjectName(u"textEdit_show_2")
         self.textEdit_show_2.setGeometry(QRect(40, 630, 691, 111))
+        self.textEdit_show_2.viewport().setProperty("cursor", QCursor(Qt.IBeamCursor))
         self.textEdit_show_2.setReadOnly(True)
         self.groupBox_3 = QGroupBox(self.tab_2)
         self.groupBox_3.setObjectName(u"groupBox_3")
@@ -315,141 +351,172 @@ class Ui_MainWindow(object):
         self.pushButton_start_update_doos = QPushButton(self.groupBox_3)
         self.pushButton_start_update_doos.setObjectName(u"pushButton_start_update_doos")
         self.pushButton_start_update_doos.setGeometry(QRect(290, 543, 101, 31))
+        self.pushButton_start_update_doos.setCursor(QCursor(Qt.PointingHandCursor))
         self.tableWidget_update_data = QTableWidget(self.groupBox_3)
         self.tableWidget_update_data.setObjectName(u"tableWidget_update_data")
         self.tableWidget_update_data.setEnabled(True)
         self.tableWidget_update_data.setGeometry(QRect(40, 330, 621, 192))
+        self.tableWidget_update_data.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContentsOnFirstShow)
         self.tableWidget_update_data.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableWidget_update_data.setSelectionMode(QAbstractItemView.SingleSelection)
         self.tableWidget_update_data.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableWidget_update_data.setHorizontalScrollMode(QAbstractItemView.ScrollPerItem)
-        self.layoutWidget2 = QWidget(self.groupBox_3)
-        self.layoutWidget2.setObjectName(u"layoutWidget2")
-        self.layoutWidget2.setGeometry(QRect(41, 300, 621, 26))
-        self.gridLayout_7 = QGridLayout(self.layoutWidget2)
+        self.tableWidget_update_data.setShowGrid(True)
+        self.tableWidget_update_data.setGridStyle(Qt.SolidLine)
+        self.tableWidget_update_data.setSortingEnabled(True)
+        self.tableWidget_update_data.setCornerButtonEnabled(True)
+        self.tableWidget_update_data.horizontalHeader().setProperty("showSortIndicator", True)
+        self.tableWidget_update_data.verticalHeader().setProperty("showSortIndicator", False)
+        self.layoutWidget3 = QWidget(self.groupBox_3)
+        self.layoutWidget3.setObjectName(u"layoutWidget3")
+        self.layoutWidget3.setGeometry(QRect(41, 300, 621, 26))
+        self.gridLayout_7 = QGridLayout(self.layoutWidget3)
         self.gridLayout_7.setObjectName(u"gridLayout_7")
         self.gridLayout_7.setContentsMargins(0, 0, 0, 0)
-        self.toolButton_update_data_table = QToolButton(self.layoutWidget2)
+        self.toolButton_update_data_table = QToolButton(self.layoutWidget3)
         self.toolButton_update_data_table.setObjectName(u"toolButton_update_data_table")
+        self.toolButton_update_data_table.setCursor(QCursor(Qt.PointingHandCursor))
         self.toolButton_update_data_table.setIcon(icon1)
 
         self.gridLayout_7.addWidget(self.toolButton_update_data_table, 0, 0, 1, 1)
 
-        self.label_value_current = QLabel(self.layoutWidget2)
+        self.label_value_current = QLabel(self.layoutWidget3)
         self.label_value_current.setObjectName(u"label_value_current")
 
         self.gridLayout_7.addWidget(self.label_value_current, 0, 1, 1, 1)
 
-        self.lineEdit_value_current = QLineEdit(self.layoutWidget2)
+        self.lineEdit_value_current = QLineEdit(self.layoutWidget3)
         self.lineEdit_value_current.setObjectName(u"lineEdit_value_current")
         self.lineEdit_value_current.setReadOnly(True)
 
         self.gridLayout_7.addWidget(self.lineEdit_value_current, 0, 2, 1, 1)
 
-        self.label_value_changed = QLabel(self.layoutWidget2)
+        self.label_value_changed = QLabel(self.layoutWidget3)
         self.label_value_changed.setObjectName(u"label_value_changed")
 
         self.gridLayout_7.addWidget(self.label_value_changed, 0, 3, 1, 1)
 
-        self.lineEdit_value_changed = QLineEdit(self.layoutWidget2)
+        self.lineEdit_value_changed = QLineEdit(self.layoutWidget3)
         self.lineEdit_value_changed.setObjectName(u"lineEdit_value_changed")
         self.lineEdit_value_changed.setClearButtonEnabled(True)
 
         self.gridLayout_7.addWidget(self.lineEdit_value_changed, 0, 4, 1, 1)
 
-        self.pushButton_changedata_user = QPushButton(self.layoutWidget2)
+        self.pushButton_changedata_user = QPushButton(self.layoutWidget3)
         self.pushButton_changedata_user.setObjectName(u"pushButton_changedata_user")
+        self.pushButton_changedata_user.setCursor(QCursor(Qt.PointingHandCursor))
         icon7 = QIcon()
         icon7.addFile(u":/icon/Res/icon/change_icon.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_changedata_user.setIcon(icon7)
 
         self.gridLayout_7.addWidget(self.pushButton_changedata_user, 0, 5, 1, 1)
 
-        self.pushButton_changedata_delete = QPushButton(self.layoutWidget2)
+        self.pushButton_changedata_delete = QPushButton(self.layoutWidget3)
         self.pushButton_changedata_delete.setObjectName(u"pushButton_changedata_delete")
+        self.pushButton_changedata_delete.setCursor(QCursor(Qt.PointingHandCursor))
         self.pushButton_changedata_delete.setIcon(icon5)
 
         self.gridLayout_7.addWidget(self.pushButton_changedata_delete, 0, 6, 1, 1)
 
-        self.pushButton_export_data = QPushButton(self.layoutWidget2)
+        self.pushButton_export_data = QPushButton(self.layoutWidget3)
         self.pushButton_export_data.setObjectName(u"pushButton_export_data")
+        self.pushButton_export_data.setCursor(QCursor(Qt.PointingHandCursor))
         icon8 = QIcon()
         icon8.addFile(u":/icon/Res/icon/export_icon.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_export_data.setIcon(icon8)
 
         self.gridLayout_7.addWidget(self.pushButton_export_data, 0, 7, 1, 1)
 
-        self.layoutWidget3 = QWidget(self.groupBox_3)
-        self.layoutWidget3.setObjectName(u"layoutWidget3")
-        self.layoutWidget3.setGeometry(QRect(45, 32, 611, 248))
-        self.gridLayout_3 = QGridLayout(self.layoutWidget3)
+        self.layoutWidget4 = QWidget(self.groupBox_3)
+        self.layoutWidget4.setObjectName(u"layoutWidget4")
+        self.layoutWidget4.setGeometry(QRect(45, 32, 611, 248))
+        self.gridLayout_3 = QGridLayout(self.layoutWidget4)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.label_series_2 = QLabel(self.layoutWidget3)
+        self.label_series_2 = QLabel(self.layoutWidget4)
         self.label_series_2.setObjectName(u"label_series_2")
 
         self.gridLayout_3.addWidget(self.label_series_2, 0, 0, 1, 1)
 
-        self.label_module_name_list_2 = QLabel(self.layoutWidget3)
+        self.label_module_name_list_2 = QLabel(self.layoutWidget4)
         self.label_module_name_list_2.setObjectName(u"label_module_name_list_2")
 
         self.gridLayout_3.addWidget(self.label_module_name_list_2, 1, 0, 1, 1)
 
-        self.lineEdit_module_name_list_2 = QLineEdit(self.layoutWidget3)
+        self.lineEdit_module_name_list_2 = QLineEdit(self.layoutWidget4)
         self.lineEdit_module_name_list_2.setObjectName(u"lineEdit_module_name_list_2")
         self.lineEdit_module_name_list_2.setReadOnly(True)
 
         self.gridLayout_3.addWidget(self.lineEdit_module_name_list_2, 1, 1, 1, 1)
 
-        self.label_data_name_list_2 = QLabel(self.layoutWidget3)
+        self.label_data_name_list_2 = QLabel(self.layoutWidget4)
         self.label_data_name_list_2.setObjectName(u"label_data_name_list_2")
 
         self.gridLayout_3.addWidget(self.label_data_name_list_2, 1, 3, 1, 1)
 
-        self.lineEdit_data_name_list_2 = QLineEdit(self.layoutWidget3)
+        self.lineEdit_data_name_list_2 = QLineEdit(self.layoutWidget4)
         self.lineEdit_data_name_list_2.setObjectName(u"lineEdit_data_name_list_2")
         self.lineEdit_data_name_list_2.setReadOnly(True)
 
         self.gridLayout_3.addWidget(self.lineEdit_data_name_list_2, 1, 4, 1, 1)
 
-        self.listWidget_rule_module_name_2 = QListWidget(self.layoutWidget3)
-        QListWidgetItem(self.listWidget_rule_module_name_2)
-        self.listWidget_rule_module_name_2.setObjectName(u"listWidget_rule_module_name_2")
-        self.listWidget_rule_module_name_2.setSelectionMode(QAbstractItemView.SingleSelection)
-
-        self.gridLayout_3.addWidget(self.listWidget_rule_module_name_2, 2, 1, 1, 2)
-
-        self.listWidget_rule_data_name_2 = QListWidget(self.layoutWidget3)
+        self.listWidget_rule_data_name_2 = QListWidget(self.layoutWidget4)
         QListWidgetItem(self.listWidget_rule_data_name_2)
         self.listWidget_rule_data_name_2.setObjectName(u"listWidget_rule_data_name_2")
         self.listWidget_rule_data_name_2.setSelectionMode(QAbstractItemView.SingleSelection)
 
         self.gridLayout_3.addWidget(self.listWidget_rule_data_name_2, 2, 4, 1, 1)
 
-        self.comboBox_series = QComboBox(self.layoutWidget3)
+        self.comboBox_series = QComboBox(self.layoutWidget4)
         self.comboBox_series.setObjectName(u"comboBox_series")
 
         self.gridLayout_3.addWidget(self.comboBox_series, 0, 1, 1, 1)
 
-        self.toolButton_reflash_list_2 = QToolButton(self.layoutWidget3)
+        self.toolButton_reflash_list_2 = QToolButton(self.layoutWidget4)
         self.toolButton_reflash_list_2.setObjectName(u"toolButton_reflash_list_2")
+        self.toolButton_reflash_list_2.setCursor(QCursor(Qt.PointingHandCursor))
         self.toolButton_reflash_list_2.setIcon(icon1)
 
         self.gridLayout_3.addWidget(self.toolButton_reflash_list_2, 0, 3, 1, 1)
+
+        self.listWidget_rule_module_name_2 = QListWidget(self.layoutWidget4)
+        QListWidgetItem(self.listWidget_rule_module_name_2)
+        self.listWidget_rule_module_name_2.setObjectName(u"listWidget_rule_module_name_2")
+        self.listWidget_rule_module_name_2.setSelectionMode(QAbstractItemView.SingleSelection)
+
+        self.gridLayout_3.addWidget(self.listWidget_rule_module_name_2, 2, 1, 1, 1)
 
         self.checkBox_is_bypass_ispnequal = QCheckBox(self.groupBox_3)
         self.checkBox_is_bypass_ispnequal.setObjectName(u"checkBox_is_bypass_ispnequal")
         self.checkBox_is_bypass_ispnequal.setGeometry(QRect(40, 530, 132, 20))
         self.checkBox_is_bypass_ispnequal.setChecked(False)
-        self.toolButton_clear_show2 = QToolButton(self.tab_2)
-        self.toolButton_clear_show2.setObjectName(u"toolButton_clear_show2")
-        self.toolButton_clear_show2.setGeometry(QRect(710, 740, 21, 22))
-        self.toolButton_clear_show2.setIcon(icon6)
         self.label_2 = QLabel(self.tab_2)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(670, -10, 81, 61))
         self.label_2.setPixmap(QPixmap(u":/pic/Res/pic/bhss_logo-removebg-preview.png"))
         self.label_2.setScaledContents(True)
+        self.layoutWidget5 = QWidget(self.tab_2)
+        self.layoutWidget5.setObjectName(u"layoutWidget5")
+        self.layoutWidget5.setGeometry(QRect(40, 740, 691, 25))
+        self.horizontalLayout_2 = QHBoxLayout(self.layoutWidget5)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.progressBar_updatedoors = QProgressBar(self.layoutWidget5)
+        self.progressBar_updatedoors.setObjectName(u"progressBar_updatedoors")
+        self.progressBar_updatedoors.setStyleSheet(u"    QProgressBar::chunk {\\n        background-color: green;\\n    }")
+        self.progressBar_updatedoors.setValue(0)
+        self.progressBar_updatedoors.setAlignment(Qt.AlignCenter)
+        self.progressBar_updatedoors.setTextVisible(True)
+
+        self.horizontalLayout_2.addWidget(self.progressBar_updatedoors)
+
+        self.toolButton_clear_show2 = QToolButton(self.layoutWidget5)
+        self.toolButton_clear_show2.setObjectName(u"toolButton_clear_show2")
+        self.toolButton_clear_show2.setCursor(QCursor(Qt.PointingHandCursor))
+        self.toolButton_clear_show2.setIcon(icon6)
+
+        self.horizontalLayout_2.addWidget(self.toolButton_clear_show2)
+
         self.tabWidget.addTab(self.tab_2, "")
         self.widget = QWidget()
         self.widget.setObjectName(u"widget")
@@ -460,12 +527,12 @@ class Ui_MainWindow(object):
         self.label_3.setScaledContents(True)
         self.label_4 = QLabel(self.widget)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(300, 10, 151, 141))
+        self.label_4.setGeometry(QRect(300, 60, 151, 141))
         self.label_4.setPixmap(QPixmap(u":/pic/Res/pic/app_logo_big.png"))
         self.label_4.setScaledContents(True)
         self.label_5 = QLabel(self.widget)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(340, 140, 81, 21))
+        self.label_5.setGeometry(QRect(340, 190, 81, 21))
         font4 = QFont()
         font4.setFamilies([u"Arial"])
         font4.setBold(True)
@@ -477,18 +544,18 @@ class Ui_MainWindow(object):
         font5.setFamilies([u"Arial"])
         font5.setPointSize(8)
         self.label_8.setFont(font5)
-        self.widget1 = QWidget(self.widget)
-        self.widget1.setObjectName(u"widget1")
-        self.widget1.setGeometry(QRect(240, 730, 266, 18))
-        self.horizontalLayout = QHBoxLayout(self.widget1)
+        self.layoutWidget6 = QWidget(self.widget)
+        self.layoutWidget6.setObjectName(u"layoutWidget6")
+        self.layoutWidget6.setGeometry(QRect(240, 730, 286, 18))
+        self.horizontalLayout = QHBoxLayout(self.layoutWidget6)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.label_7 = QLabel(self.widget1)
+        self.label_7 = QLabel(self.layoutWidget6)
         self.label_7.setObjectName(u"label_7")
 
         self.horizontalLayout.addWidget(self.label_7)
 
-        self.label_6 = QLabel(self.widget1)
+        self.label_6 = QLabel(self.layoutWidget6)
         self.label_6.setObjectName(u"label_6")
         self.label_6.setOpenExternalLinks(True)
         self.label_6.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
@@ -503,10 +570,20 @@ class Ui_MainWindow(object):
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
         self.menubar.setGeometry(QRect(0, 0, 790, 22))
+        self.menuFile = QMenu(self.menubar)
+        self.menuFile.setObjectName(u"menuFile")
+        self.menuTool = QMenu(self.menubar)
+        self.menuTool.setObjectName(u"menuTool")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
+
+        self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menuTool.menuAction())
+        self.menuFile.addAction(self.actionExit)
+        self.menuFile.addSeparator()
+        self.menuTool.addAction(self.actionClear_Database)
 
         self.retranslateUi(MainWindow)
 
@@ -518,8 +595,10 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"DataQueryX", None))
+        self.actionExit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
+        self.actionClear_Database.setText(QCoreApplication.translate("MainWindow", u"Clear Database", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Data Query", None))
-        self.pushButton_start_data_query.setText(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb\u67e5\u8be2\u6570\u636e", None))
+        self.pushButton_start_data_query.setText(QCoreApplication.translate("MainWindow", u"Run Query", None))
         self.checkBox_is_get_previous_value.setText(QCoreApplication.translate("MainWindow", u"Check Previous Value", None))
         self.label_series.setText(QCoreApplication.translate("MainWindow", u"Set Series", None))
         self.lineEdit_series.setPlaceholderText(QCoreApplication.translate("MainWindow", u"NS", None))
@@ -542,7 +621,7 @@ class Ui_MainWindow(object):
 
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Configuration", None))
 #if QT_CONFIG(tooltip)
-        self.button_save.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:10pt;\">\u4fdd\u5b58\u914d\u7f6e\u6587\u4ef6</span></p></body></html>", None))
+        self.button_save.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u4fdd\u5b58\u914d\u7f6e\u6587\u4ef6</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.button_save.setText(QCoreApplication.translate("MainWindow", u"Save", None))
 #if QT_CONFIG(tooltip)
@@ -550,9 +629,12 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.pushButton_check.setText(QCoreApplication.translate("MainWindow", u"Check", None))
 #if QT_CONFIG(tooltip)
-        self.button_load.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:10pt;\">\u52a0\u8f7d\u914d\u7f6e\u6587\u4ef6</span></p></body></html>", None))
+        self.button_load.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u52a0\u8f7d\u914d\u7f6e\u6587\u4ef6</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.button_load.setText(QCoreApplication.translate("MainWindow", u"Load", None))
+#if QT_CONFIG(tooltip)
+        self.pushButton_clear_cfg.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u6e05\u9664\u914d\u7f6e</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
         self.pushButton_clear_cfg.setText(QCoreApplication.translate("MainWindow", u"Clear", None))
         self.label_username.setText(QCoreApplication.translate("MainWindow", u"DoorsUserName", None))
         self.lineEdit_username.setPlaceholderText(QCoreApplication.translate("MainWindow", u"* Doors Username", None))
@@ -579,11 +661,11 @@ class Ui_MainWindow(object):
         self.lineEdit_path_geskon.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Select your Geskon file", None))
         self.lineEdit_path_dcm.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Select your DCM file", None))
         self.lineEdit_path_a2l.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Select your A2L file", None))
-        self.toolButton_clear_show1.setText(QCoreApplication.translate("MainWindow", u"C", None))
         self.label.setText("")
+        self.toolButton_clear_show1.setText(QCoreApplication.translate("MainWindow", u"C", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Data Query", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"Update Doors", None))
-        self.pushButton_start_update_doos.setText(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb\u66f4\u65b0Doors", None))
+        self.pushButton_start_update_doos.setText(QCoreApplication.translate("MainWindow", u"Run Upload", None))
         self.toolButton_update_data_table.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.label_value_current.setText(QCoreApplication.translate("MainWindow", u"Value", None))
         self.label_value_changed.setText(QCoreApplication.translate("MainWindow", u"Changed Value", None))
@@ -595,23 +677,23 @@ class Ui_MainWindow(object):
         self.label_module_name_list_2.setText(QCoreApplication.translate("MainWindow", u"Module Name", None))
         self.label_data_name_list_2.setText(QCoreApplication.translate("MainWindow", u"Data Name", None))
 
-        __sortingEnabled2 = self.listWidget_rule_module_name_2.isSortingEnabled()
-        self.listWidget_rule_module_name_2.setSortingEnabled(False)
-        ___qlistwidgetitem2 = self.listWidget_rule_module_name_2.item(0)
-        ___qlistwidgetitem2.setText(QCoreApplication.translate("MainWindow", u"... ...", None));
-        self.listWidget_rule_module_name_2.setSortingEnabled(__sortingEnabled2)
-
-
-        __sortingEnabled3 = self.listWidget_rule_data_name_2.isSortingEnabled()
+        __sortingEnabled2 = self.listWidget_rule_data_name_2.isSortingEnabled()
         self.listWidget_rule_data_name_2.setSortingEnabled(False)
-        ___qlistwidgetitem3 = self.listWidget_rule_data_name_2.item(0)
-        ___qlistwidgetitem3.setText(QCoreApplication.translate("MainWindow", u"... ...", None));
-        self.listWidget_rule_data_name_2.setSortingEnabled(__sortingEnabled3)
+        ___qlistwidgetitem2 = self.listWidget_rule_data_name_2.item(0)
+        ___qlistwidgetitem2.setText(QCoreApplication.translate("MainWindow", u"... ...", None));
+        self.listWidget_rule_data_name_2.setSortingEnabled(__sortingEnabled2)
 
         self.toolButton_reflash_list_2.setText(QCoreApplication.translate("MainWindow", u"Reflash", None))
+
+        __sortingEnabled3 = self.listWidget_rule_module_name_2.isSortingEnabled()
+        self.listWidget_rule_module_name_2.setSortingEnabled(False)
+        ___qlistwidgetitem3 = self.listWidget_rule_module_name_2.item(0)
+        ___qlistwidgetitem3.setText(QCoreApplication.translate("MainWindow", u"... ...", None));
+        self.listWidget_rule_module_name_2.setSortingEnabled(__sortingEnabled3)
+
         self.checkBox_is_bypass_ispnequal.setText(QCoreApplication.translate("MainWindow", u"Bypass P/N Equal", None))
-        self.toolButton_clear_show2.setText(QCoreApplication.translate("MainWindow", u"C", None))
         self.label_2.setText("")
+        self.toolButton_clear_show2.setText(QCoreApplication.translate("MainWindow", u"C", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Update Doors", None))
         self.label_3.setText("")
         self.label_4.setText("")
@@ -620,5 +702,7 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Author:", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"<a href=\"mailto:zhengli.yang@boschhuayu-steering.com\">zhengli.yang@boschhuayu-steering.com</a>", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.widget), QCoreApplication.translate("MainWindow", u"About", None))
+        self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
+        self.menuTool.setTitle(QCoreApplication.translate("MainWindow", u"Advanced", None))
     # retranslateUi
 

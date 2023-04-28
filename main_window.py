@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPus
     QMessageBox, QMenu, QTextBrowser, QVBoxLayout, QListWidgetItem, QTableWidgetItem
 from PySide6.QtCore import Qt, QObject, Signal, QThread, Slot, QRect
 from PySide6.QtGui import QAction
+import os
 import json
 import time
 import datetime
@@ -48,6 +49,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.worker_data_query.finished.connect(self.thread_data_query.quit)
         self.worker_data_query.message.connect(self.on_message_send_data_query)
 
+        self.worker_data_query.progress.connect(self.data_query_progress)
 
         # 创建 QThread 对象 更新Doors
         self.thread_doors = QThread()
@@ -58,6 +60,8 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.worker_doors.finished.connect(self.button_set_enable)
         self.worker_doors.finished.connect(self.thread_doors.quit)
         self.worker_doors.message.connect(self.on_message_send_doors)
+
+        self.worker_doors.progress.connect(self.update_doors_progress)
 
 
         # # 连接任务的 started 信号到槽函数，禁用按钮
@@ -96,6 +100,20 @@ class MyWindow(QMainWindow, Ui_MainWindow):
 
         self.check_data_list_reflash()
         self.check_data_list_reflash_2()
+
+        # Menubar
+        self.actionExit.triggered.connect(self.close)
+        self.actionClear_Database.triggered.connect(self.clear_database)
+
+        # self.statusbar.showMessage("Ready")
+
+    def data_query_progress(self, i):
+        self.progressBar.setValue(i)
+
+    def update_doors_progress(self,i):
+        self.progressBar_updatedoors.setValue(i)
+
+
 
 
 
@@ -485,6 +503,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                         for i in db_data_list:
                             data_list.append(i[0])
                     self.listWidget_rule_data_name_2.addItems(data_list)
+            self.update_data_table()
 
 
         def on_item_select_changed_data():
@@ -497,6 +516,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                 data_name = item.text()
                 print("当前选择的data_name是", data_name)
                 self.lineEdit_data_name_list_2.setText(data_name)
+            self.update_data_table()
 
         def on_table_cell_changed():
             self.lineEdit_value_changed.clear()
@@ -582,7 +602,9 @@ class MyWindow(QMainWindow, Ui_MainWindow):
     def update_data_table(self):
         self.lineEdit_value_changed.clear()
         self.lineEdit_value_current.clear()
+        self.tableWidget_update_data.clear()
         self.tableWidget_update_data.setRowCount(0)
+        self.tableWidget_update_data.setSortingEnabled(False)
         print("点击了更新列表")
         select_module = self.lineEdit_module_name_list_2.text()
         select_data = self.lineEdit_data_name_list_2.text()
@@ -605,6 +627,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                 for j, value in enumerate(row):
                     item = QTableWidgetItem(str(value))
                     self.tableWidget_update_data.setItem(i, j, item)
+        self.tableWidget_update_data.setSortingEnabled(True)
 
 
     def create_message_box(self, type):
@@ -651,7 +674,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
             msg_box = QMessageBox()
             msg_box.setWindowTitle("Confirmation")
             msg_box.setIcon(QMessageBox.Information)
-            msg_box.setText("Continue")
+            msg_box.setText("Press OK to continue")
             msg_box.setStandardButtons(QMessageBox.Ok)
 
             # get user response
@@ -755,8 +778,11 @@ class MyWindow(QMainWindow, Ui_MainWindow):
 
                     # save DataFrame to Excel file with date-based filename
                     now = datetime.datetime.now()
-                    filename = now.strftime("Data\data_%Y-%m-%d_%H-%M-%S.xlsx")
-                    wb.save(filename)
+                    mypath = MyPath()
+
+                    filename = now.strftime("data_%Y-%m-%d_%H-%M-%S.xlsx")
+                    file_dir = os.path.join(mypath.data_dir, filename)
+                    wb.save(file_dir)
 
                     # create a messagebox
                     msg_box = QMessageBox()
@@ -765,6 +791,9 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                     msg_box.setText(f"Successfully saved to {filename}")
                     msg_box.setStandardButtons(QMessageBox.Ok)
                     msg_box.exec()
+                    if os.path.exists(file_dir):
+                        import subprocess
+                        subprocess.Popen(r'explorer /select,"{}"'.format(file_dir))
 
                 except Exception as e:
                     print("An errror occurs: ", e)
@@ -777,6 +806,28 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                     msg_box.exec()
         else:
             self.create_message_box("Cancel")
+
+    def clear_database(self):
+        print("点击了清除数据库")
+        # create a messagebox
+        msg_box = QMessageBox()
+        msg_box.setWindowTitle("Warning")
+        msg_box.setIcon(QMessageBox.Warning)
+        msg_box.setText("The clearing cannot be undone, Do you want to continue?")
+        msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+        # get user response
+        response = msg_box.exec()
+        # check user response
+        if response == QMessageBox.Ok:
+            print("User clicked Ok")
+            dbhander_temp = MyDataBaseHander()
+            dbhander_temp.delete_data_update()
+            self.reflash_data_list2()
+
+        elif response == QMessageBox.Cancel:
+            print("User clicked Cancel")
+
 
 
     def button_set_disable(self):
@@ -873,6 +924,7 @@ class MyTask_DataQuery(QObject):
     started = Signal()
     finished = Signal()
     message = Signal(str)
+    progress = Signal(int)
 
     def __init__(self, data_list, series, get_previous):
         super().__init__()
@@ -886,8 +938,17 @@ class MyTask_DataQuery(QObject):
         self.message.emit(f"开始查找... 请耐心等待...")
         print("data_list in thread: ", self.db_data_list)
 
+        i = 1
+        task_number = len(self.db_data_list)
         t_start = time.perf_counter()
         for data_tuple in self.db_data_list:
+
+            if i >= 99:
+                i = 99
+            else:
+                i += 98 / task_number
+            self.progress.emit(i)
+
             print(data_tuple[0], data_tuple[1])
             print("构建mydata")
             mydata = MyData(data_tuple[0], data_tuple[1], self.series, self.get_previous)
@@ -901,7 +962,10 @@ class MyTask_DataQuery(QObject):
         t_end = time.perf_counter()
         t_cost = t_end - t_start
         print(f'运行耗时:{t_cost:.8f}s')
-        self.message.emit(f'运行耗时:{t_cost:.8f}s')
+        self.message.emit(f'\n运行结束, 耗时: {t_cost:.8f} s.  共查询了 {task_number} 条.')
+
+        self.progress.emit(100)
+
         # 任务完成后发出 finished 信号
         self.finished.emit()
 
@@ -912,6 +976,7 @@ class MyTask_UpdateDoors(QObject):
     started = Signal()
     finished = Signal()
     message = Signal(str)
+    progress = Signal(int)
 
     def __init__(self, update_list):
         super().__init__()
@@ -922,6 +987,7 @@ class MyTask_UpdateDoors(QObject):
         self.message.emit(f"开始发送... 请耐心等待...")
         print("update_list in thread: ", self.update_list)
         t_start = time.perf_counter()
+
         # 构建Dxl清单
         mydxlcreator = MyDxlCommand()
         mydxl_list = mydxlcreator.create_update_dxl(self.update_list)
@@ -934,7 +1000,18 @@ class MyTask_UpdateDoors(QObject):
         mysender = DxlSender()
         mysender.mydoors.run_doors()
 
+        i = 1
+        task_number = message_number
+        t_start = time.perf_counter()
+
         for cmd in mydxl_list:
+
+            if i >= 99:
+                i = 99
+            else:
+                i += 98 / task_number
+            self.progress.emit(i)
+
             message_counter += 1
             print(f"开始发送第{message_counter}条")
             self.message.emit(f"开始发送第 {message_counter} 条...")
@@ -946,7 +1023,7 @@ class MyTask_UpdateDoors(QObject):
                 self.message.emit(f"第{message_counter}条发送成功。")
             else:
                 print(f"第{message_counter}条发送失败")
-                self.message.emit(f"第 {message_counter} 条发送成功。")
+                self.message.emit(f"第 {message_counter} 条发送失败。")
             print(f"发送成功{response_number}条")
         print(f"需发送{message_number}条，发送成功{response_number}条")
         self.message.emit(f"发送结束，需发送总数 {message_number} 条，发送成功 {response_number} 条。")
@@ -955,7 +1032,10 @@ class MyTask_UpdateDoors(QObject):
         t_end = time.perf_counter()
         t_cost = t_end - t_start
         print(f'运行耗时:{t_cost:.8f}s')
-        self.message.emit(f'运行耗时:{t_cost:.8f}s')
+        self.message.emit(f'\n运行结束, 耗时: {t_cost:.8f} s')
+
+        self.progress.emit(100)
+
         self.finished.emit()
 
 

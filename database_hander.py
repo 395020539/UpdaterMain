@@ -387,6 +387,27 @@ class MyDataBaseHander:
         return
 
 
+    def delete_data_update(self):
+        """ 清空数据库表 data_update """
+        conn = self.connect()
+        if conn:
+            # 创建一个游标对象
+            cursor = conn.cursor()
+            sql_update = """
+         DELETE FROM data_update
+         """
+            try:
+                cursor.execute(sql_update)
+                conn.commit()
+            except Exception as e:
+                print(f"Error querying data: {e}")
+            # commit the changes
+        else:
+            print("Failed to connect to database.")
+        self.close_connection(conn)
+        return
+
+
 
 if __name__ == '__main__':
     mydbhander = MyDataBaseHander()
