@@ -3,9 +3,9 @@
     "doors_password": "yzldoors11",
     "project_name": "BHSS_SysEng_DongFengLanTu_Group",
     "data_suffix": "",
-    "data_file": "Default",
-    "file_mech": "D:/000-WORK/001-WHRC/001-PROJECTS/DFMC/H97C/004-Parameters/C01/MechanicalDataSheet -\u673a\u68b0\u53c2\u6570\u8868 Voyah_H97C_20220902.xlsm",
-    "file_geskon": "D:/000-WORK/001-WHRC/001-PROJECTS/DFMC/H97C/007-Application/3504079752_DF0_D01_C_01_00/DF0D01C0100_RG3_X_SCU3_B3_VAR_01_geskon.kon",
-    "file_dcm": "D:/MyPython/UpdaterMain/Temp/DCM_ALL_HYCAN_G08_Feeling first tuning_based on_GA1103C0200_20230222.dcm",
-    "file_a2l": "D:/000-WORK/001-WHRC/001-PROJECTS/DFMC/H97C/007-Application/3504079752_DF0_D01_C_01_00/DF0D01C0100_RG3_X_SCU3_B3_VAR_01.a2l"
+    "data_file": "",
+    "file_mech": "D:/MyPython/UpdaterMain/Temp/MechanicalDataSheet -\u673a\u68b0\u53c2\u6570\u8868 Voyah_H97C_20230411\uff08update steering angle and....xlsm",
+    "file_geskon": "D:/MyPython/UpdaterMain/Temp/DF0D01D0100_RG3_X_SCU3_B3_VAR_01_geskon.kon",
+    "file_dcm": "D:/MyPython/UpdaterMain/Temp/H97C_all_230401.dcm",
+    "file_a2l": "D:/MyPython/UpdaterMain/Temp/DF0D01D0100_RG3_X_SCU3_B3_VAR_01.a2l"
 }

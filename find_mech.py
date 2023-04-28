@@ -17,10 +17,10 @@ from logging_maker import logger
 
 def check_mech_sheet(sheet_names):
     check_mech_sheet_result = True
-    if len(sheet_names) != 9:
-        check_mech_sheet_result = False
-        print("MechanicalDataSheet is not complete")
-        logger.critical("MechanicalDataSheet is not complete")
+    # if len(sheet_names) != 9:
+    #     check_mech_sheet_result = False
+    #     print("MechanicalDataSheet is not complete")
+    #     logger.critical("MechanicalDataSheet is not complete")
     if not "MechanicalData" in sheet_names[1] or \
             not "Steering Ratio" in sheet_names[2] or \
             not "SW-Endstop" in sheet_names[3] or \

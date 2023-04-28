@@ -82,11 +82,11 @@ class MyPath:
         # 初始化相关路径，如路径不存在，创建路径或文件
         self.init_all_path()
 
-        # 指定参数查询所需文件的路径
-        self.file_a2l = r"D:\MyPython\UpdaterMain\Temp\GA1103C0300_RG3_X_SCU3_B3_VAR_04.a2l"
-        self.file_geskon = r"D:\MyPython\UpdaterMain\Temp\GA1103C0300_RG3_X_SCU3_B3_VAR_04_geskon.kon"
-        self.file_dcm = r"D:\MyPython\UpdaterMain\Temp\DCM_ALL_HYCAN_G08_Feeling first tuning_based on_GA1103C0200_20230222.dcm"
-        self.file_mech_table = r"D:\MyPython\UpdaterMain\Temp\HYCAN G08 mechanicalDataSheet-20220812.xlsm"
+        # # 指定参数查询所需文件的路径
+        # self.file_a2l = r"D:\MyPython\UpdaterMain\Temp\GA1103C0300_RG3_X_SCU3_B3_VAR_04.a2l"
+        # self.file_geskon = r"D:\MyPython\UpdaterMain\Temp\GA1103C0300_RG3_X_SCU3_B3_VAR_04_geskon.kon"
+        # self.file_dcm = r"D:\MyPython\UpdaterMain\Temp\DCM_ALL_HYCAN_G08_Feeling first tuning_based on_GA1103C0200_20230222.dcm"
+        # self.file_mech_table = r"D:\MyPython\UpdaterMain\Temp\HYCAN G08 mechanicalDataSheet-20220812.xlsm"
 
         print(f"app_dir = \n{self.app_dir}")
         print(f"config_dir = \n{self.config_dir}")
@@ -141,7 +141,7 @@ class MyFilePath:
                 print(f"file_mech = \n{file_mech}")
                 file_geskon = json_data['file_geskon']
                 print(f"file_geskon = \n{file_geskon}")
-                file_dcm = "/" + json_data['file_dcm']
+                file_dcm = json_data['file_dcm']
                 print(f"file_dcm = \n{file_dcm}")
                 file_a2l = json_data['file_a2l']
                 print(f"file_a2l = \n{file_a2l}")

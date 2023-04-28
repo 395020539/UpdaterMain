@@ -155,7 +155,7 @@ def formula_57():
     mypath = MyFilePath()
     _, result = spec_fun_find_variable_formula_57(mypath.file_geskon, mypath.file_dcm,mypath.file_mech)
     result = result.rstrip("\n")
-    print(result)
+    print(f"formula_57_result: {result}")
     return result
 
 def formula_58():

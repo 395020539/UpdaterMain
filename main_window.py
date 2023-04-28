@@ -8,9 +8,13 @@ from PySide6.QtCore import Qt, QObject, Signal, QThread, Slot, QRect
 from PySide6.QtGui import QAction
 import json
 import time
+import datetime
+import pandas as pd
+from openpyxl import Workbook
+from openpyxl.utils.dataframe import dataframe_to_rows
 
 from DataQueryX import Ui_MainWindow
-from configuration_reader import MyPath, MyConfig
+from configuration_reader import MyPath, MyConfig, MyFilePath
 from database_hander import MyDataBaseHander
 from data_finder import MyData
 from dxl_command_creator import MyDxlCommand
@@ -39,6 +43,8 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.worker_data_query = MyTask_DataQuery(None, None, None)
         self.worker_data_query.moveToThread(self.thread_data_query)
         self.thread_data_query.started.connect(self.worker_data_query.run)
+        self.worker_data_query.started.connect(self.button_set_disable)
+        self.worker_data_query.finished.connect(self.button_set_enable)
         self.worker_data_query.finished.connect(self.thread_data_query.quit)
         self.worker_data_query.message.connect(self.on_message_send_data_query)
 
@@ -48,6 +54,8 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.worker_doors = MyTask_UpdateDoors(None)
         self.worker_doors.moveToThread(self.thread_doors)
         self.thread_doors.started.connect(self.worker_doors.run)
+        self.worker_doors.started.connect(self.button_set_disable)
+        self.worker_doors.finished.connect(self.button_set_enable)
         self.worker_doors.finished.connect(self.thread_doors.quit)
         self.worker_doors.message.connect(self.on_message_send_doors)
 
@@ -59,30 +67,37 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         # self.worker.finished.connect(self.on_task_finished)
 
 
-        # Data Query Group
+        # Group Configuration
         self.toolButton_path_mech.clicked.connect(self.select_file_mech)
         self.toolButton_path_geskon.clicked.connect(self.select_file_geskon)
         self.toolButton_path_dcm.clicked.connect(self.select_file_dcm)
         self.toolButton_path_a2l.clicked.connect(self.select_file_a2l)
-        self.pushButton_start_data_query.clicked.connect(self.start_data_query)
-
-        # Data Query Group
         self.button_load.clicked.connect(self.load_cfg)
         self.button_save.clicked.connect(self.save_cfg)
+        self.pushButton_clear_cfg.clicked.connect(self.clear_cfg)
         self.pushButton_check.clicked.connect(self.check_config)
         self.checkBox_psw.stateChanged.connect(self.password_display)
+
+        # Group Data Query
+        self.pushButton_start_data_query.clicked.connect(self.start_data_query)
         self.toolButton_reflash_list.clicked.connect(self.reflash_data_list)
 
 
 
-        # UpdateDoors Group
+        # Group UpdateDoors
         self.toolButton_reflash_list_2.clicked.connect(self.reflash_data_list2)
         self.toolButton_update_data_table.clicked.connect(self.update_data_table)
         self.pushButton_start_update_doos.clicked.connect(self.start_update_doors)
+        self.pushButton_export_data.clicked.connect(self.export_data_to_excel)
 
+        # Show Information
+        self.toolButton_clear_show1.clicked.connect(self.textEdit_show.clear)
+        self.toolButton_clear_show2.clicked.connect(self.textEdit_show_2.clear)
 
         self.check_data_list_reflash()
         self.check_data_list_reflash_2()
+
+
 
 
 
@@ -164,6 +179,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
     def load_cfg(self):
         print("load cfg")
         myconfig = MyConfig()
+        myfilepath = MyFilePath()
         project_name = myconfig.doors_project_path[1:]
         print(f"project_name is [{project_name}]")
         data_suffix = myconfig.data_suffix
@@ -172,11 +188,23 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         print(f"doors_username is [{doors_username}]")
         doors_password = myconfig.doors_password
         print(f"doors_password is [{doors_password}]")
+        file_mech = myfilepath.file_mech
+        print(f"file_mech is [{file_mech}]")
+        file_geskon = myfilepath.file_geskon
+        print(f"file_geskon is [{file_geskon}]")
+        file_dcm = myfilepath.file_dcm
+        print(f"file_dcm is [{file_mech}]")
+        file_a2l = myfilepath.file_a2l
+        print(f"doors_password is [{file_a2l}]")
 
         self.lineEdit_project_name.setText(project_name)
         self.lineEdit_data_suffix.setText(data_suffix)
         self.lineEdit_username.setText(doors_username)
         self.lineEdit_password.setText(doors_password)
+        self.lineEdit_path_mech.setText(file_mech)
+        self.lineEdit_path_geskon.setText(file_geskon)
+        self.lineEdit_path_dcm.setText(file_dcm)
+        self.lineEdit_path_a2l.setText(file_a2l)
 
     def save_cfg(self):
         mypath = MyPath()
@@ -185,6 +213,10 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         data_suffix = self.lineEdit_data_suffix.text()
         doors_username = self.lineEdit_username.text()
         doors_password = self.lineEdit_password.text()
+        file_mech = self.lineEdit_path_mech.text()
+        file_geskon = self.lineEdit_path_geskon.text()
+        file_dcm = self.lineEdit_path_dcm.text()
+        file_a2l = self.lineEdit_path_a2l.text()
 
         try:
             with open(mypath.config_path, 'r', encoding='utf - 8') as f:
@@ -193,6 +225,10 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                 json_data["data_suffix"] = data_suffix
                 json_data["doors_username"] = doors_username
                 json_data["doors_password"] = doors_password
+                json_data["file_mech"] = file_mech
+                json_data["file_geskon"] = file_geskon
+                json_data["file_dcm"] = file_dcm
+                json_data["file_a2l"] = file_a2l
         except Exception as e:
             print("An error occurred:", e)
         try:
@@ -202,6 +238,28 @@ class MyWindow(QMainWindow, Ui_MainWindow):
             print("An error occurred:", e)
 
         QMessageBox.information(self, "提示", "已保存！")
+
+
+    def clear_cfg(self):
+        print("点击了清除配置")
+        response = self.create_message_box("Confirmation")
+        if response == QMessageBox.Ok:
+            mypath = MyPath()
+            default_cfg = {"doors_username": "",
+                           "doors_password": "",
+                           "project_name": "",
+                           "data_suffix": "",
+                           "data_file": "",
+                           "file_mech": "",
+                           "file_geskon": "",
+                           "file_dcm": "",
+                           "file_a2l": ""}
+            json_data = json.dumps(default_cfg, indent=4)
+            # Write the JSON string to a file
+            with open(mypath.config_path, 'w') as f:
+                f.write(json_data)
+            self.load_cfg()
+
 
     def password_display(self):
         if self.checkBox_psw.isChecked():
@@ -648,9 +706,13 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         dbhander_temp = MyDataBaseHander()
         db_data_list = dbhander_temp.select_update_data_list_by_series_and_module_and_data(select_series,select_module,select_data)
         print(db_data_list)
+
         for i in db_data_list:
-            if i[4] == 0:
+            if self.checkBox_is_bypass_ispnequal.isChecked():
                 update_list.append((i[1], i[0], i[2]))
+            else:
+                if i[4] == 0:
+                    update_list.append((i[1], i[0], i[2]))
         print(update_list)
         print(len(update_list))
         if len(update_list) == 0:
@@ -662,8 +724,113 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                 self.thread_doors.start()
 
 
+    def export_data_to_excel(self):
+        print("点击了export按钮")
+        rowocunt = self.tableWidget_update_data.rowCount()
+        print("rowocunt = ",rowocunt)
+        if rowocunt > 0:
+            response = self.create_message_box("Confirmation")
+            if response == QMessageBox.Ok:
+                try:
+                    # convert QTableWidget data to pandas DataFrame
+                    data = []
+                    for row in range(self.tableWidget_update_data.rowCount()):
+                        data.append([])
+                        for column in range(self.tableWidget_update_data.columnCount()):
+                            data[row].append(self.tableWidget_update_data.item(row, column).text())
+                    df = pd.DataFrame(data)
+                    print("data:\n",data)
+                    # add headers and row numbers to DataFrame
+                    headers = []
+                    for column in range(self.tableWidget_update_data.columnCount()):
+                        headers.append(self.tableWidget_update_data.horizontalHeaderItem(column).text())
+                    df.columns = headers
+                    df.index += 1
+
+                    # save DataFrame to Excel file
+                    wb = Workbook()
+                    ws = wb.active
+                    for r in dataframe_to_rows(df, index=True, header=True):
+                        ws.append(r)
+
+                    # save DataFrame to Excel file with date-based filename
+                    now = datetime.datetime.now()
+                    filename = now.strftime("Data\data_%Y-%m-%d_%H-%M-%S.xlsx")
+                    wb.save(filename)
+
+                    # create a messagebox
+                    msg_box = QMessageBox()
+                    msg_box.setWindowTitle("Information")
+                    msg_box.setIcon(QMessageBox.Information)
+                    msg_box.setText(f"Successfully saved to {filename}")
+                    msg_box.setStandardButtons(QMessageBox.Ok)
+                    msg_box.exec()
+
+                except Exception as e:
+                    print("An errror occurs: ", e)
+                    # create a messagebox
+                    msg_box = QMessageBox()
+                    msg_box.setWindowTitle("Information")
+                    msg_box.setIcon(QMessageBox.Warning)
+                    msg_box.setText(f"An errror occurs: {e}")
+                    msg_box.setStandardButtons(QMessageBox.Ok)
+                    msg_box.exec()
+        else:
+            self.create_message_box("Cancel")
 
 
+    def button_set_disable(self):
+        self.pushButton_start_data_query.setDisabled(True)
+        self.pushButton_start_update_doos.setDisabled(True)
+        self.button_save.setDisabled(True)
+        self.pushButton_clear_cfg.setDisabled(True)
+        self.toolButton_path_mech.setDisabled(True)
+        self.toolButton_path_geskon.setDisabled(True)
+        self.toolButton_path_dcm.setDisabled(True)
+        self.toolButton_path_a2l.setDisabled(True)
+        self.lineEdit_username.setDisabled(True)
+        self.lineEdit_password.setDisabled(True)
+        self.lineEdit_project_name.setDisabled(True)
+        self.lineEdit_data_suffix.setDisabled(True)
+        self.lineEdit_path_mech.setDisabled(True)
+        self.lineEdit_path_geskon.setDisabled(True)
+        self.lineEdit_path_dcm.setDisabled(True)
+        self.lineEdit_path_a2l.setDisabled(True)
+        self.toolButton_reflash_list.setDisabled(True)
+        self.checkBox_is_get_previous_value.setDisabled(True)
+        self.lineEdit_series.setDisabled(True)
+        self.toolButton_reflash_list_2.setDisabled(True)
+        self.pushButton_changedata_user.setDisabled(True)
+        self.pushButton_changedata_delete.setDisabled(True)
+        self.pushButton_export_data.setDisabled(True)
+        self.checkBox_is_bypass_ispnequal.setDisabled(True)
+
+
+    def button_set_enable(self):
+        self.pushButton_start_data_query.setEnabled(True)
+        self.pushButton_start_update_doos.setEnabled(True)
+        self.button_save.setEnabled(True)
+        self.pushButton_clear_cfg.setEnabled(True)
+        self.toolButton_path_mech.setEnabled(True)
+        self.toolButton_path_geskon.setEnabled(True)
+        self.toolButton_path_dcm.setEnabled(True)
+        self.toolButton_path_a2l.setEnabled(True)
+        self.lineEdit_username.setEnabled(True)
+        self.lineEdit_password.setEnabled(True)
+        self.lineEdit_project_name.setEnabled(True)
+        self.lineEdit_data_suffix.setEnabled(True)
+        self.lineEdit_path_mech.setEnabled(True)
+        self.lineEdit_path_geskon.setEnabled(True)
+        self.lineEdit_path_dcm.setEnabled(True)
+        self.lineEdit_path_a2l.setEnabled(True)
+        self.toolButton_reflash_list.setEnabled(True)
+        self.checkBox_is_get_previous_value.setEnabled(True)
+        self.lineEdit_series.setEnabled(True)
+        self.toolButton_reflash_list_2.setEnabled(True)
+        self.pushButton_changedata_user.setEnabled(True)
+        self.pushButton_changedata_delete.setEnabled(True)
+        self.pushButton_export_data.setEnabled(True)
+        self.checkBox_is_bypass_ispnequal.setEnabled(True)
 
 
 
@@ -734,6 +901,7 @@ class MyTask_DataQuery(QObject):
         t_end = time.perf_counter()
         t_cost = t_end - t_start
         print(f'运行耗时:{t_cost:.8f}s')
+        self.message.emit(f'运行耗时:{t_cost:.8f}s')
         # 任务完成后发出 finished 信号
         self.finished.emit()
 
@@ -753,7 +921,7 @@ class MyTask_UpdateDoors(QObject):
         self.started.emit()
         self.message.emit(f"开始发送... 请耐心等待...")
         print("update_list in thread: ", self.update_list)
-
+        t_start = time.perf_counter()
         # 构建Dxl清单
         mydxlcreator = MyDxlCommand()
         mydxl_list = mydxlcreator.create_update_dxl(self.update_list)
@@ -784,6 +952,10 @@ class MyTask_UpdateDoors(QObject):
         self.message.emit(f"发送结束，需发送总数 {message_number} 条，发送成功 {response_number} 条。")
 
         mysender.mydoors.kill_doors()
+        t_end = time.perf_counter()
+        t_cost = t_end - t_start
+        print(f'运行耗时:{t_cost:.8f}s')
+        self.message.emit(f'运行耗时:{t_cost:.8f}s')
         self.finished.emit()
 
 
