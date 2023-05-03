@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QWidget, QFileDialog, \
-    QMessageBox, QMenu, QTextBrowser, QVBoxLayout, QListWidgetItem, QTableWidgetItem
-from PySide6.QtCore import Qt, QObject, Signal, QThread, Slot, QRect
-from PySide6.QtGui import QAction
+from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, \
+    QMessageBox, QListWidgetItem, QTableWidgetItem
+from PySide6.QtCore import QObject, Signal, QThread
+
 import os
 import json
 import time
@@ -32,12 +32,6 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.task = None
         self.setupUi(self)
         self.retranslateUi(self)
-
-        # # 创建 QThread 对象
-        # self.worker = MyTask_QueryData()
-        # self.thread = QThread()
-        # self.worker.moveToThread(self.thread)
-        # self.thread.start()
 
         # 创建 QThread 对象 查询数据
         self.thread_data_query = QThread()
@@ -400,13 +394,6 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.textEdit_show.append(f"参数值:\n{value_new}")
         if value_previous != "":
             self.textEdit_show.append(f"以往值:\n{value_previous}")
-
-    def on_task_started(self):
-        self.textEdit_show.clear()
-        self.textEdit_show.append(f"[Info: Start... ...]")
-
-    def on_task_finished(self):
-        self.textEdit_show.append(f"[Info: Finish.]")
 
     def reflash_data_list2(self):
         self.comboBox_series.clear()
@@ -885,41 +872,6 @@ class MyWindow(QMainWindow, Ui_MainWindow):
 
 
 
-
-class MyTask_QueryData(QObject):
-
-    started = Signal()
-    finished = Signal()
-    message = Signal(str, str, str, str)
-
-    # def query_data(self, data_tuple, series, get_previous):
-    def query_data(self):
-        global db_data_list
-        global series
-        global get_previous
-        # 发出 started 信号以通知 UI 线程
-        self.started.emit()
-
-        t_start = time.perf_counter()
-        for data_tuple in db_data_list:
-            print(data_tuple[0], data_tuple[1])
-            print("构建mydata")
-            mydata = MyData(data_tuple[0], data_tuple[1], series, get_previous)
-            print("构建完成mydata", mydata.data_name, mydata.module_name, mydata.value_new, mydata.value_previous)
-            self.message.emit(mydata.data_name, mydata.module_name, mydata.value_new, mydata.value_previous)
-
-        # print("运行中")
-        # time.sleep(5)
-        t_end = time.perf_counter()
-        t_cost = t_end - t_start
-        print(f'运行耗时:{t_cost:.8f}s')
-        # print("运行结束")
-
-        # 任务完成后发出 finished 信号
-        self.finished.emit()
-
-        return mydata.data_name,mydata.module_name,mydata.value_new,mydata.value_previous
-
 class MyTask_DataQuery(QObject):
     started = Signal()
     finished = Signal()
@@ -962,7 +914,7 @@ class MyTask_DataQuery(QObject):
         t_end = time.perf_counter()
         t_cost = t_end - t_start
         print(f'运行耗时:{t_cost:.8f}s')
-        self.message.emit(f'\n运行结束, 耗时: {t_cost:.8f} s.  共查询了 {task_number} 条.')
+        self.message.emit(f'\n运行结束, 耗时: {t_cost:.2f} s.  共查询了 {task_number} 条.')
 
         self.progress.emit(100)
 
@@ -1032,7 +984,7 @@ class MyTask_UpdateDoors(QObject):
         t_end = time.perf_counter()
         t_cost = t_end - t_start
         print(f'运行耗时:{t_cost:.8f}s')
-        self.message.emit(f'\n运行结束, 耗时: {t_cost:.8f} s')
+        self.message.emit(f'\n运行结束, 耗时: {t_cost:.2f} s')
 
         self.progress.emit(100)
 
@@ -1040,32 +992,6 @@ class MyTask_UpdateDoors(QObject):
 
 
 
-    def query_data(self):
-        global db_data_list
-        global series
-        global get_previous
-        # 发出 started 信号以通知 UI 线程
-        self.started.emit()
-
-        t_start = time.perf_counter()
-        for data_tuple in db_data_list:
-            print(data_tuple[0], data_tuple[1])
-            print("构建mydata")
-            mydata = MyData(data_tuple[0], data_tuple[1], series, get_previous)
-            print("构建完成mydata", mydata.data_name, mydata.module_name, mydata.value_new, mydata.value_previous)
-            self.message.emit(mydata.data_name, mydata.module_name, mydata.value_new, mydata.value_previous)
-
-        # print("运行中")
-        # time.sleep(5)
-        t_end = time.perf_counter()
-        t_cost = t_end - t_start
-        print(f'运行耗时:{t_cost:.8f}s')
-        # print("运行结束")
-
-        # 任务完成后发出 finished 信号
-        self.finished.emit()
-
-        return mydata.data_name, mydata.module_name, mydata.value_new, mydata.value_previous
 
 
 

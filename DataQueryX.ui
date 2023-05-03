@@ -112,35 +112,6 @@
           <string>Check Previous Value</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_series">
-         <property name="geometry">
-          <rect>
-           <x>41</x>
-           <y>227</y>
-           <width>52</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Set Series</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lineEdit_series">
-         <property name="geometry">
-          <rect>
-           <x>99</x>
-           <y>227</y>
-           <width>71</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="placeholderText">
-          <string>NS</string>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
         <widget class="QToolButton" name="toolButton_reflash_list">
          <property name="geometry">
           <rect>
@@ -219,6 +190,35 @@
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="">
+         <property name="geometry">
+          <rect>
+           <x>41</x>
+           <y>227</y>
+           <width>196</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_series">
+            <property name="text">
+             <string>Set Series</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_series">
+            <property name="placeholderText">
+             <string>NS</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
        <widget class="QGroupBox" name="groupBox_2">
         <property name="geometry">
@@ -256,6 +256,7 @@
            <pointsize>9</pointsize>
            <italic>false</italic>
            <bold>true</bold>
+           <underline>false</underline>
            <kerning>true</kerning>
           </font>
          </property>
@@ -323,6 +324,7 @@
            <pointsize>9</pointsize>
            <italic>false</italic>
            <bold>true</bold>
+           <underline>false</underline>
           </font>
          </property>
          <property name="cursor">
